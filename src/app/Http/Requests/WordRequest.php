@@ -22,12 +22,12 @@ class WordRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'english' => 'required|string|max:255',
-            'japanese' => 'required|string|max:255',
-            'e-sentence' => 'nullable|string|max:255',
-            'j-sentence' => 'nullable|string|max:255',
-            'wordbook_id' => 'required|integer|exists:wordbooks,id',
-            'order' => 'required|integer|min:1',
+            // 'english' => 'required|string|max:255',
+            // 'japanese' => 'required|string|max:255',
+            // 'e-sentence' => 'nullable|string|max:255',
+            // 'j-sentence' => 'nullable|string|max:255',
+            // 'wordbook_id' => 'required|integer|exists:wordbooks,id',
+            // 'order' => 'required|integer|min:1',
         ];
     }
 

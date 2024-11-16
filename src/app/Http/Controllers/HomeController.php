@@ -4,25 +4,19 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Word;
+use App\Models\Wordbook;
 use App\Http\Requests\WordRequest;
 
 class HomeController extends Controller
 {
 	public function index()
 	{
-		$words = Word::all();
-		return view('index', compact('words'));
+		$words = Word::paginate(100);
+		$wordbooks = Wordbook::all();
+		return view('index', compact('words', 'wordbooks'));
 	}
 
-	public function create()
-	{
-		return view('admin.create');
-	}
-	public function store(WordRequest $request)
-	{
-		Word::create($request->all());
-		return redirect()->route('create')->with('success', '単語が追加されました');
-	}
+
 
 	public function test(Request $request)
 	{

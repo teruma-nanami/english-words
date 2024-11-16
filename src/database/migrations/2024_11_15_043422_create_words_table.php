@@ -15,8 +15,8 @@ return new class extends Migration
             $table->id();
             $table->string('english');
             $table->string('japanese');
-            $table->string('e-sentence')->nullable();
-            $table->string('j-sentence')->nullable();
+            $table->string('e_sentence')->nullable();
+            $table->string('j_sentence')->nullable();
             $table->timestamps();
         });
     }

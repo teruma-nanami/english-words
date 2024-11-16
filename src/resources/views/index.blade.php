@@ -6,13 +6,38 @@
 
 @section('content')
   <div class="container">
-    <h1>Words List</h1>
-    <a href="{{ route('create') }}">Add New Word</a>
-    <a href="{{ route('test') }}">test Word</a>
-    <ul>
+    <h2>単語一覧ページ</h2>
+    <!-- 単語帳選択と検索フォーム -->
+    <form action="{{ route('create') }}" method="GET">
+      <div class="inner__text">
+        <label for="wordbook">単語帳を選択</label>
+        <select name="wordbook_id" id="wordbook" onchange="this.form.submit()">
+          @foreach ($wordbooks as $wordbook)
+            <option value="{{ $wordbook->id }}" {{ request('wordbook_id') == $wordbook->id ? 'selected' : '' }}>
+              {{ $wordbook->name }}</option>
+          @endforeach
+        </select>
+      </div>
+      <div class="inner__text">
+        <input type="text" name="search" id="search" value="{{ request('search') }}">
+        <button type="submit"><i class="bi bi-search"></i></button>
+      </div>
+    </form> <!-- 単語一覧表示 -->
+    <table>
+      <tr>
+        <th>ID</th>
+        <th>英単語</th>
+        <th>日本語</th>
+      </tr>
       @foreach ($words as $word)
-        <li>{{ $word->english }} - {{ $word->japanese }}</li>
+        <tr>
+          <td>{{ $word->id }}</td>
+          <td>{{ $word->english }}</td>
+          <td>{{ $word->japanese }}</td>
+        </tr>
       @endforeach
-    </ul>
+    </table>
+    <!-- ページネーション -->
+    {{ $words->links() }}
   </div>
 @endsection

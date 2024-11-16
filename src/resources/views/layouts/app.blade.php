@@ -22,11 +22,14 @@
 
     <div class="header__inner">
       <h1>
-        <a href="/" class="header__logo"><img src="/img/logo.png" alt=""></a>
+        <a href="/" class="header__logo"><img src="/img/simple-words.png" alt=""></a>
       </h1>
       <div class="header__nav" id="navMenu">
-        {{-- <ul>
+        <ul>
           @if (auth()->check())
+          <li><a href="{{ route('list') }}">単語一覧</a></li>
+          <li><a href="{{ route('create') }}">単語の追加</a></li>
+          <li><a href="{{ route('add') }}">単語帳の追加</a></li>
             <li>
               <form action="/logout" method="POST">
                 @csrf
@@ -34,18 +37,12 @@
               </form>
             </li>
           @else
+          <li><a href="{{ route('test') }}">単語テスト</a></li>
             <li>
               <a href="{{ route('login') }}" class="login__button"> <i class="bi bi-box-arrow-in-right"></i> ログイン</a>
             </li>
           @endif
-          <li>
-            <a href="{{ route('profile.mypage') }}" class="mypage__button"> <i class="bi bi-person-circle"></i>
-              マイページ</a>
-          </li>
-          <li>
-            <a href="{{ route('items.create') }}" class="purchace__button"> <i class="bi bi-bag-fill"></i> 出品</a>
-          </li>
-        </ul> --}}
+        </ul>
       </div>
     </div>
   </header>

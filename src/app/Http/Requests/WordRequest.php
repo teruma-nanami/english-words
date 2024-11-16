@@ -24,6 +24,8 @@ class WordRequest extends FormRequest
         return [
             'english' => 'required|string|max:255',
             'japanese' => 'required|string|max:255',
+            'e-sentence' => 'string|max:255',
+            'j-sentence' => 'string|max:255',
         ];
     }
 }

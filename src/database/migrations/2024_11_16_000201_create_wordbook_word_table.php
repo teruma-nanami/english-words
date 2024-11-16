@@ -11,12 +11,11 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('words', function (Blueprint $table) {
+        Schema::create('wordbook_word', function (Blueprint $table) {
             $table->id();
-            $table->string('english');
-            $table->string('japanese');
-            $table->string('e-sentence')->nullable();
-            $table->string('j-sentence')->nullable();
+            $table->foreignId('wordbook_id')->constrained()->onDelete('cascade');
+            $table->foreignId('word_id')->constrained()->onDelete('cascade');
+            $table->integer('order');
             $table->timestamps();
         });
     }
@@ -26,6 +25,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('words');
+        Schema::dropIfExists('wordbook_word');
     }
 };

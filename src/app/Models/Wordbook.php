@@ -7,5 +7,16 @@ use Illuminate\Database\Eloquent\Model;
 
 class Wordbook extends Model
 {
-    use HasFactory;
+	use HasFactory;
+
+	protected $fillable = [
+		'name',
+	];
+
+	public function words()
+	{
+		return $this->belongsToMany(Word::class, 'wordbook_word')
+			->withPivot('order')
+			->withTimestamps();
+	}
 }

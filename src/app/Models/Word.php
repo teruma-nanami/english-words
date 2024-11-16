@@ -7,10 +7,19 @@ use Illuminate\Database\Eloquent\Model;
 
 class Word extends Model
 {
-    use HasFactory;
+	use HasFactory;
 
-    protected $fillable = [
-        'english',
-        'japanese',
-    ];
+	protected $fillable = [
+		'english',
+		'japanese',
+		'e-sentence',
+		'j-sentence',
+	];
+
+	public function wordbooks()
+	{
+		return $this->belongsToMany(Wordbook::class, 'Wordbook_word')
+			->withPivot('order')
+			->withTimestamps();
+	}
 }

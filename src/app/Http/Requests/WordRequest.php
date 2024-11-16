@@ -24,8 +24,21 @@ class WordRequest extends FormRequest
         return [
             'english' => 'required|string|max:255',
             'japanese' => 'required|string|max:255',
-            'e-sentence' => 'string|max:255',
-            'j-sentence' => 'string|max:255',
+            'e-sentence' => 'nullable|string|max:255',
+            'j-sentence' => 'nullable|string|max:255',
+            'wordbook_id' => 'required|integer|exists:wordbooks,id',
+            'order' => 'required|integer|min:1',
+        ];
+    }
+
+    public function messages()
+    {
+        return [
+            'english.required' => '英単語は必須です。',
+            'japanese.required' => '日本語訳は必須です。',
+            'wordbook_id.required' => '単語帳の選択は必須です。',
+            'order.required' => '順序は必須です。',
+            'order.min' => '順序は1以上である必要があります。',
         ];
     }
 }

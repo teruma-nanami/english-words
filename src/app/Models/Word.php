@@ -18,7 +18,7 @@ class Word extends Model
 
 	public function wordbooks()
 	{
-		return $this->belongsToMany(Wordbook::class, 'Wordbook_word')
+		return $this->belongsToMany(Wordbook::class, 'wordbook_word')
 			->withPivot('order')
 			->withTimestamps();
 	}

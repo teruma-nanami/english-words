@@ -1,0 +1,46 @@
+@import 'variables';
+
+.container {
+  max-width: 680px;
+  margin: 0 auto;
+  padding: 0 8px;
+}
+h2 {
+  font-size: 40px;
+  text-align: center;
+  margin-top: 40px;
+}
+p {
+  margin-top: 20px;
+  font-size: 18px;
+}
+.form {
+  margin-top: 40px;
+  &__inner-text {
+    margin-top: 16px;
+    font-size: 24px;
+    input {
+      width: 100%;
+      margin-top: 8px;
+      padding: 20px;
+      font-size: 20px;
+    }
+  }
+  &__button {
+    margin: 30px 0;
+    button {
+      width: 100%;
+      appearance: none;
+      border: none;
+      cursor: pointer;
+      color: #fff;
+      background: $base-color;
+      font-size: 24px;
+      padding: 20px 0;
+    }
+    button:hover {
+      background: $hover-color;
+      transition: .4s;
+    }
+  }
+}

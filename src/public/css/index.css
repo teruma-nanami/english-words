@@ -1,0 +1,85 @@
+.container {
+  max-width: 680px;
+  margin: 0 auto;
+  padding: 0 8px;
+}
+.container h2 {
+  text-align: center;
+  font-size: 40px;
+  margin-top: 40px;
+}
+
+.test__inner {
+  font-size: 22px;
+  text-align: center;
+  margin: 20px 0;
+}
+.test__inner input {
+  width: 30%;
+  padding: 8px;
+}
+.test__inner button {
+  padding: 12px;
+  background: #191970;
+  color: #fff;
+  margin-top: 20px;
+  width: 100%;
+  border: none;
+  font-size: 20px;
+  cursor: pointer;
+}
+.test__inner button:hover {
+  background-color: #f93;
+  transition: 0.4s;
+}
+
+.inner__text {
+  font-size: 24px;
+  text-align: center;
+  margin: 20px 0;
+}
+.inner__text select {
+  width: 50%;
+  padding: 12px;
+}
+.inner__text input {
+  width: 80%;
+  padding: 12px;
+}
+.inner__text button {
+  padding: 12px;
+  background: none;
+  border: none;
+  font-size: 20px;
+  cursor: pointer;
+}
+.inner__text button:hover {
+  opacity: 0.6;
+}
+
+table, tbody, tr {
+  width: 100%;
+  font-size: 20px;
+  border-collapse: collapse;
+}
+
+tr:nth-child(odd) {
+  background-color: #e2e2ff;
+}
+
+th {
+  background-color: #191970;
+  color: #fff;
+  padding: 8px;
+}
+
+td {
+  text-align: center;
+  padding: 8px;
+}
+td a {
+  color: #191970;
+}
+td a:hover {
+  color: #f93;
+}/*# sourceMappingURL=index.css.map */

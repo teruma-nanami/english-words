@@ -50,10 +50,14 @@ class AdminController extends Controller
 		$wordbookId = $request->input('wordbook_id');
 		$order = $request->input('order');
 		$word->wordbooks()->attach($wordbookId, ['order' => $order]);
-		return redirect()->route('create')->with('success', 'Word added to wordbook successfully.');
+		return redirect()->route('create')->with('success', '単語を追加しました');
 	}
 	public function add()
 	{
 		return view('admin.add');
+	}
+	public function books()
+	{
+		return redirect()->view('admin.list')->with('success', '単語帳を追加しました');
 	}
 }

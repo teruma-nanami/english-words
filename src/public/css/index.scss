@@ -137,14 +137,17 @@ td {
 .understand__button:hover {
   background-color: $hover-color;
 }
+
 .info__inner {
   text-align: center;
   font-size: 24px;
+
   p {
     display: inline-block;
     padding: 10px;
   }
 }
+
 .result__inner {
   h2 {
     text-align: center;
@@ -161,6 +164,7 @@ td {
     background-color: #eee;
   }
 }
+
 .hidden {
   display: none;
 }

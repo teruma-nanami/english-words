@@ -18,6 +18,9 @@ use App\Http\Controllers\AdminController;
 
 Route::get('/', [HomeController::class, 'index'])->name('index');
 Route::get('/test', [HomeController::class, 'test'])->name('test');
+Route::post('/test', [HomeController::class, 'startTest'])->name('test.start');
+
+
 
 Route::middleware(['auth'])->group(function () {
   Route::get('/list', [AdminController::class, 'list'])->name('list');

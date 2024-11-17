@@ -3,21 +3,25 @@
 .container {
   max-width: 680px;
   margin: 0 auto;
-  padding: 0 8px;
+  padding: 0 8px 150px;
+
   h2 {
     text-align: center;
     font-size: 40px;
     margin-top: 40px;
   }
 }
+
 .test__inner {
   font-size: 22px;
   text-align: center;
   margin: 20px 0;
+
   input {
     width: 30%;
     padding: 8px;
   }
+
   button {
     padding: 12px;
     background: $base-color;
@@ -27,55 +31,140 @@
     border: none;
     font-size: 20px;
     cursor: pointer;
+    border-radius: 8px;
   }
+
   button:hover {
     background-color: $hover-color;
     transition: .4s;
   }
 }
+
 .inner__text {
   font-size: 24px;
   text-align: center;
   margin: 20px 0;
+
   select {
     width: 50%;
     padding: 12px;
   }
+
   input {
     width: 80%;
     padding: 12px;
   }
+
   button {
     padding: 12px;
     background: none;
     border: none;
     font-size: 20px;
     cursor: pointer;
+    border-radius: 8px;
   }
+
   button:hover {
     opacity: .6;
   }
 }
-table,tbody,tr {
+
+table,
+tbody,
+tr {
   width: 100%;
   font-size: 20px;
   border-collapse: collapse;
 }
+
 tr:nth-child(odd) {
   background-color: #e2e2ff;
 }
+
 th {
   background-color: $base-color;
   color: #fff;
   padding: 8px;
 }
+
 td {
   text-align: center;
   padding: 8px;
+
   a {
     color: $base-color;
   }
+
   a:hover {
     color: $hover-color;
   }
+}
+
+.word__text {
+  margin-top: 60px;
+  font-size: 24px;
+  text-align: center;
+}
+
+.answer__button {
+  padding: 12px;
+  background: $answer-color;
+  color: #fff;
+  margin-top: 20px;
+  width: 100%;
+  border: none;
+  font-size: 20px;
+  cursor: pointer;
+  border-radius: 8px;
+}
+
+.answer__button:hover {
+  background-color: $hover-color;
+}
+
+.understand__button {
+  padding: 12px;
+  background: $answer-color;
+  color: #fff;
+  margin-top: 20px;
+  width: 49%;
+  border: none;
+  font-size: 20px;
+  cursor: pointer;
+  border-radius: 8px;
+}
+
+.understand__button:hover {
+  background-color: $hover-color;
+}
+
+.info__inner {
+  text-align: center;
+  font-size: 24px;
+
+  p {
+    display: inline-block;
+    padding: 10px;
+  }
+}
+
+.result__inner {
+  h2 {
+    text-align: center;
+    font-size: 40px;
+    margin: 40px 0;
+  }
+
+  th,
+  td {
+    width: 50%;
+  }
+
+  td {
+    background-color: #eee;
+  }
+}
+
+.hidden {
+  display: none;
 }

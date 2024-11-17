@@ -39,9 +39,10 @@ p {
   border: none;
   cursor: pointer;
   color: #fff;
-  background: #ff5555;
+  background: #191970;
   font-size: 24px;
   padding: 20px 0;
+  border-radius: 8px;
 }
 .form__button button:hover {
   background: #f93;

@@ -16,11 +16,11 @@ class DatabaseSeeder extends Seeder
     public function run()
     {
       User::create([
-        'email' => 'adminuser@gmail.com',
-        'password' => bcrypt('wordpass1412'),
+        'email' => 'admin@example.com',
+        'password' => bcrypt('password'),
       ]);
 			Wordbook::create([
-        'name' => 'target_1200_2020'
+        'name' => 'ターゲット1200'
       ]);
       Word::create([
         'english' => 'change',

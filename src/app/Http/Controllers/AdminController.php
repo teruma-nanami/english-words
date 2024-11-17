@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\Word;
 use App\Models\Wordbook;
 use App\Http\Requests\AdminRequest;
+use App\Http\Requests\WordbookRequest;
 
 class AdminController extends Controller
 {
@@ -56,8 +57,9 @@ class AdminController extends Controller
 	{
 		return view('admin.add');
 	}
-	public function books()
+	public function books(WordbookRequest $request)
 	{
-		return redirect()->view('admin.list')->with('success', '単語帳を追加しました');
+		Wordbook::create($request->all());
+		return redirect()->route('list')->with('success', '単語帳を追加しました');
 	}
 }

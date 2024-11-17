@@ -27,6 +27,7 @@
       <div class="header__nav" id="navMenu">
         <ul>
           @if (auth()->check())
+          <li><a href="{{ route('test') }}">単語テスト</a></li>
           <li><a href="{{ route('list') }}">単語一覧</a></li>
           <li><a href="{{ route('create') }}">単語の追加</a></li>
           <li><a href="{{ route('add') }}">単語帳の追加</a></li>
@@ -57,7 +58,7 @@
         {{ session('error') }}
       </div>
     @endif
-    @if ($errors->any())
+    {{-- @if ($errors->any())
       <div class="alert alert-danger">
         <ul>
           @foreach ($errors->all() as $error)
@@ -65,7 +66,7 @@
           @endforeach
         </ul>
       </div>
-    @endif
+    @endif --}}
     @yield('content')
   </main>
   <script src="{{ asset('js/test.js') }}"></script>

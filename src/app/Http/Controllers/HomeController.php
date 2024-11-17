@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Word;
 use App\Models\Wordbook;
-use App\Http\Requests\WordRequest;
 
 class HomeController extends Controller
 {

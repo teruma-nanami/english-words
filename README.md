@@ -7,8 +7,8 @@ english-words
 ## アプリケーションURL
 http://english-word.nanami-teruma.com
 
-すでに稼働しているアプリのため、ログインIDやパスワードを教えることはできません。
-ローカル環境であれば、自由に確認してもらうことが可能です。
+すでに稼働しているアプリのため、ログインIDやパスワードを教えることはできません。  
+ローカル環境であれば、自由に確認してもらうことが可能です。  
 ログイン後の機能としては、単語の追加、単語帳の追加、単語と単語帳の紐づけなどを行うことができます。
 
 ## 機能一覧
@@ -26,6 +26,7 @@ http://english-word.nanami-teruma.com
 - MySQL 8.0
 
 ## テーブル設計
+### Usersテーブル
 | カラム名   | 型              | PRIMARY KEY | UNIQUE KEY | NOT NULL | FOREIGN KEY |
 |------------|-----------------|-------------|------------|----------|--------------|
 | ID         | bigint unsigned | ◯           |            | ◯        |              |
@@ -34,8 +35,7 @@ http://english-word.nanami-teruma.com
 | created_at | timestamp       |             |            |          |              |
 | updated_at | timestamp       |             |            |          |              |
 
-
-
+### wordsテーブル
 | カラム名   | 型              | PRIMARY KEY | UNIQUE KEY | NOT NULL | FOREIGN KEY |
 |------------|-----------------|-------------|------------|----------|--------------|
 | ID         | bigint unsigned | ◯           |            | ◯        |              |
@@ -46,8 +46,7 @@ http://english-word.nanami-teruma.com
 | created_at | timestamp       |             |            |          |              |
 | updated_at | timestamp       |             |            |          |              |
 
-
-
+### wordbooksテーブル
 | カラム名   | 型              | PRIMARY KEY | UNIQUE KEY | NOT NULL | FOREIGN KEY |
 |------------|-----------------|-------------|------------|----------|--------------|
 | ID         | bigint unsigned | ◯           |            | ◯        |              |
@@ -55,7 +54,7 @@ http://english-word.nanami-teruma.com
 | created_at | timestamp       |             |            |          |              |
 | updated_at | timestamp       |             |            |          |              |
 
-
+### 中間テーブル
 | カラム名     | 型              | PRIMARY KEY | UNIQUE KEY | NOT NULL | FOREIGN KEY           |
 |--------------|-----------------|-------------|------------|----------|-----------------------|
 | ID           | bigint unsigned | ◯           |            | ◯        |                       |
@@ -64,7 +63,6 @@ http://english-word.nanami-teruma.com
 | order        | integer         |             |            | ◯        |                       |
 | created_at   | timestamp       |             |            |          |                       |
 | updated_at   | timestamp       |             |            |          |                       |
-
 
 
 ## 環境構築

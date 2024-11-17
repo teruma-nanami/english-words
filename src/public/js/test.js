@@ -4,6 +4,16 @@ document.addEventListener('DOMContentLoaded', function () {
   let understoodCount = 0;
   let didNotUnderstandCount = 0;
 
+  // 読み上げ機能を実装予定
+  document.querySelectorAll('.word').forEach(function (element) {
+    element.addEventListener('click', function () {
+      const word = this.dataset.word;
+      const utterance = new SpeechSynthesisUtterance(word);
+      utterance.lang = 'en-US'; // 読み上げ言語を設定
+      window.speechSynthesis.speak(utterance);
+    });
+  });
+
   function showNextWord() {
     document.getElementById(`word-${currentWordIndex}`).style.display = 'none';
     currentWordIndex++;

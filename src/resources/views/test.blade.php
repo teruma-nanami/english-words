@@ -28,7 +28,7 @@
       <div id="quiz">
         @foreach ($words as $index => $word)
           <div class="word-container" id="word-{{ $index }}" style="{{ $index !== 0 ? 'display:none;' : '' }}">
-            <div class="word word__text">{{ $word->english }}</div>
+            <div class="word word__text" data-word="{{ $word->english }}">{{ $word->english }}</div>
             <button class="showAnswer answer__button">A</button>
             <div class="answer hidden word__text">{{ $word->japanese }}</div>
             <button class="understand__button understood hidden">理解した</button>

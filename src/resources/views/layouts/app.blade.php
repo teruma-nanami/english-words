@@ -68,8 +68,7 @@
     @endif
     @yield('content')
   </main>
-  <script src="{{ asset('js/tab.js') }}"></script>
-  <script src="{{ asset('js/purchase.js') }}"></script>
+  <script src="{{ asset('js/test.js') }}"></script>
   </ </body>
 
 </html>

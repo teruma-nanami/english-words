@@ -1,0 +1,34 @@
+name: "🔧 改善・リファクタ"
+description: 既存機能の改善・リファクタリング・パフォーマンス改善
+title: "refactor: "
+labels: ["refactor"]
+body:
+  - type: textarea
+    id: target
+    attributes:
+      label: 改善対象
+      description: どのファイル・機能・モジュールを改善するか
+    validations:
+      required: true
+  - type: textarea
+    id: problem
+    attributes:
+      label: 現状の問題
+    validations:
+      required: true
+  - type: textarea
+    id: proposal
+    attributes:
+      label: 改善後の期待
+    validations:
+      required: true
+  - type: dropdown
+    id: priority
+    attributes:
+      label: 優先度
+      options:
+        - high
+        - medium
+        - low
+    validations:
+      required: true

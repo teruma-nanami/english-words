@@ -1,2 +1,26 @@
+# Docker
 docker/mysql/data/*
+
+# 環境変数
 .env
+.env.local
+.env.*.local
+
+# Laravel
+backend/vendor/
+backend/storage/logs/*
+backend/storage/framework/cache/*
+backend/storage/framework/sessions/*
+backend/storage/framework/views/*
+backend/bootstrap/cache/*
+
+# React / Node
+frontend/node_modules/
+frontend/dist/
+frontend/.env
+frontend/.env.local
+frontend/.env.*.local
+
+# OS
+.DS_Store
+Thumbs.db

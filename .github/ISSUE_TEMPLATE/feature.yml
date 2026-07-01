@@ -1,0 +1,43 @@
+name: "✨ 新機能"
+description: 新しい機能の追加を提案する
+title: "feat: "
+labels: ["feat"]
+body:
+  - type: textarea
+    id: summary
+    attributes:
+      label: 概要
+      description: どんな機能を追加したいか、1〜2文で
+    validations:
+      required: true
+  - type: textarea
+    id: motivation
+    attributes:
+      label: 背景・目的
+      description: なぜ必要か、どんな価値があるか
+    validations:
+      required: true
+  - type: textarea
+    id: spec
+    attributes:
+      label: 期待される動作
+      description: 画面・API・データの仕様概要
+    validations:
+      required: true
+  - type: textarea
+    id: scope
+    attributes:
+      label: スコープ
+      description: 含むもの・含まないもの
+    validations:
+      required: false
+  - type: dropdown
+    id: priority
+    attributes:
+      label: 優先度
+      options:
+        - high
+        - medium
+        - low
+    validations:
+      required: true

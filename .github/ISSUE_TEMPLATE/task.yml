@@ -1,0 +1,35 @@
+name: "✅ タスク"
+description: 調査・ドキュメント整備・環境構築など、コード変更を伴わない作業
+title: "chore: "
+labels: ["chore"]
+body:
+  - type: textarea
+    id: content
+    attributes:
+      label: タスク内容
+      description: 何をするか具体的に
+    validations:
+      required: true
+  - type: textarea
+    id: motivation
+    attributes:
+      label: 背景・目的
+    validations:
+      required: true
+  - type: textarea
+    id: done
+    attributes:
+      label: 完了条件
+      description: チェックリスト形式で記載
+    validations:
+      required: true
+  - type: dropdown
+    id: priority
+    attributes:
+      label: 優先度
+      options:
+        - high
+        - medium
+        - low
+    validations:
+      required: true

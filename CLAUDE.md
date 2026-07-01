@@ -1,8 +1,85 @@
 # CLAUDE.md
 
+This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+
 このファイルは、Claude Code起動時に常時参照するプロジェクトのインデックスハブである。
 
 詳細な手順や規約は、対応する`.claude/rules/`、`.claude/skills/`、`docs/`を参照すること。
+
+## コマンド
+
+### 環境起動
+
+```bash
+# 全サービス起動（nginx / php / mysql / phpmyadmin / mailhog / frontend）
+docker compose up -d --build
+
+# phpコンテナへ入る（artisanコマンドはここで実行）
+docker compose exec php bash
+```
+
+### バックエンド（phpコンテナ内で実行）
+
+```bash
+composer install
+php artisan key:generate
+php artisan migrate
+php artisan db:seed
+
+# テスト実行
+php artisan test
+php artisan test --filter=テストクラス名またはメソッド名
+
+# コードスタイル修正（Laravel Pint）
+./vendor/bin/pint
+```
+
+### フロントエンド（ホストまたはfrontendコンテナ）
+
+```bash
+# frontendコンテナはdocker compose upで自動起動（npm install && npm run dev）
+# ホストで直接実行する場合
+cd frontend
+npm install
+npm run dev    # 開発サーバー（http://localhost:3000）
+npm run build  # 本番ビルド
+npm run lint   # oxlintによる静的解析
+```
+
+## アーキテクチャ現状
+
+### 移行途中の状態
+
+バックエンドは **Laravel Blade テンプレート** 構成から **Laravel API + React SPA** 構成へ移行中。
+
+- `backend/routes/web.php` — 現在もBladeビューを返すWebルートが稼働している（公開ルートと認証済みルート）
+- `backend/routes/api.php` — デフォルトのSanctum `/user` エンドポイントのみ。API化はこれから
+- `frontend/src/App.tsx` — Viteの初期スキャフォールド状態。バックエンドとの接続は未実装
+
+### データモデル
+
+```
+words         ←→ wordbook_word（pivot） ←→ wordbooks
+  english           order（並び順）            name
+  japanese          wordbook_id
+  e_sentence        word_id
+  j_sentence
+```
+
+`Word` と `Wordbook` は多対多。中間テーブル `wordbook_word` が `order`（単語帳内の表示順）を持つ。
+
+### 認証
+
+- **Laravel Fortify** — ログイン・登録処理
+- **Laravel Sanctum** — APIトークン認証（SPA移行後に利用予定）
+- 管理機能（単語・単語帳のCRUD）は `auth` ミドルウェアで保護
+
+### バックエンド構成
+
+- `AdminController` — 認証済みユーザーによる単語・単語帳のCRUD
+- `HomeController` — 未認証でも使える単語一覧・クイズテスト
+- `AdminRequest` / `WordbookRequest` — 入力バリデーション（FormRequest）
+- テストは `backend/tests/` 配下。方針は未確定（`.claude/rules/testing.md` 参照）
 
 ## プロジェクト概要
 

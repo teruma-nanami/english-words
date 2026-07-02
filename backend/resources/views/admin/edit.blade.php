@@ -22,7 +22,7 @@
       </div>
       <div class="inner__text">
         <label for="order">Order:</label>
-        <input type="number" name="order" id="order" value="{{ old('order', $currentOrder) }}">
+        <input type="number" name="order" id="order" value="{{ old('order', $currentOrder) }}" required>
       </div>
       <!-- 単語の詳細情報 -->
       <div class="inner__text">

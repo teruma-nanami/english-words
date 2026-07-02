@@ -26,7 +26,7 @@ class AdminRequest extends FormRequest
 			'japanese' => 'required|string|max:255',
 			'part_of_speech' => 'required|in:名詞,動詞,形容詞,副詞,前置詞',
 			'wordbook_id' => 'required|integer|exists:wordbooks,id',
-			'order' => 'nullable|integer|min:1',
+			'order' => 'required|integer|min:1',
 		];
 	}
 
@@ -37,6 +37,7 @@ class AdminRequest extends FormRequest
 			'japanese.required' => '日本語訳は必須です。',
 			'part_of_speech.required' => '品詞の選択は必須です。',
 			'wordbook_id.required' => '単語帳の選択は必須です。',
+			'order.required' => '順序は必須です。',
 			'order.min' => '順序は1以上である必要があります。',
 		];
 	}

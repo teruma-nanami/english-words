@@ -22,4 +22,9 @@ class WordbookRepository implements WordbookRepositoryInterface
 	{
 		return $wordbook->words()->inRandomOrder()->limit($count)->get();
 	}
+
+	public function create(array $data): Wordbook
+	{
+		return Wordbook::create($data);
+	}
 }

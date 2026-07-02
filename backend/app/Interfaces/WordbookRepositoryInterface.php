@@ -12,4 +12,6 @@ interface WordbookRepositoryInterface
 	public function find(int $id): ?Wordbook;
 
 	public function getRandomWords(Wordbook $wordbook, int $count): Collection;
+
+	public function create(array $data): Wordbook;
 }

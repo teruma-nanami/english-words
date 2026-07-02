@@ -18,4 +18,6 @@ interface WordRepositoryInterface
 	public function attachWordbook(Word $word, int $wordbookId, int $order): void;
 
 	public function syncWordbookWithoutDetaching(Word $word, int $wordbookId, int $order): void;
+
+	public function delete(Word $word): void;
 }

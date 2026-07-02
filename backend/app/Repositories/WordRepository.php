@@ -38,4 +38,9 @@ class WordRepository implements WordRepositoryInterface
 	{
 		$word->wordbooks()->syncWithoutDetaching([$wordbookId => ['order' => $order]]);
 	}
+
+	public function delete(Word $word): void
+	{
+		$word->delete();
+	}
 }

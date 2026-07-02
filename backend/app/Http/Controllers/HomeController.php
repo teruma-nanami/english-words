@@ -2,31 +2,35 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Word;
-use App\Models\Wordbook;
 use App\Http\Requests\TestRequest;
+use App\UseCases\Test\ShowTestFormUseCase;
+use App\UseCases\Test\StartTestUseCase;
+use App\UseCases\Word\ListWordsUseCase;
 
 class HomeController extends Controller
 {
+	public function __construct(
+		private ListWordsUseCase $listWordsUseCase,
+		private ShowTestFormUseCase $showTestFormUseCase,
+		private StartTestUseCase $startTestUseCase,
+	) {
+	}
+
 	public function index()
 	{
-		$words = Word::paginate(100);
-		$wordbooks = Wordbook::all();
-		return view('index', compact('words', 'wordbooks'));
+		$data = $this->listWordsUseCase->execute();
+		return view('index', $data);
 	}
 
 	public function test()
 	{
-		$wordbooks = Wordbook::all();
-		return view('test', compact('wordbooks'));
+		$data = $this->showTestFormUseCase->execute();
+		return view('test', $data);
 	}
 
 	public function startTest(TestRequest $request)
 	{
-		$wordbooks = Wordbook::all();
-		$wordbook = Wordbook::find($request->wordbook_id);
-		$words = $wordbook->words()->inRandomOrder()->limit($request->count)->get();
-
-		return view('test', compact('words', 'wordbook', 'wordbooks'));
+		$data = $this->startTestUseCase->execute($request->wordbook_id, $request->count);
+		return view('test', $data);
 	}
 }

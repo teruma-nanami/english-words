@@ -12,8 +12,7 @@ class Word extends Model
 	protected $fillable = [
 		'english',
 		'japanese',
-		'e-sentence',
-		'j-sentence',
+		'part_of_speech',
 	];
 
 	public function wordbooks()

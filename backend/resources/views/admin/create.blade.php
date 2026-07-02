@@ -19,7 +19,7 @@
       </div>
       <div class="inner__text">
         <label for="order">Order:</label>
-        <input type="number" name="order" id="order" required>
+        <input type="number" name="order" id="order">
       </div>
       <div class="inner__text">
         <label for="english">英単語</label>
@@ -30,12 +30,17 @@
         <input type="text" name="japanese" id="japanese" required>
       </div>
       <div class="inner__text">
-        <label for="e_sentence">英文　</label>
-        <input type="text" name="e_sentence" id="e_sentence">
-      </div>
-      <div class="inner__text">
-        <label for="j_sentence">日本文</label>
-        <input type="text" name="j_sentence" id="j_sentence">
+        <span>品詞：</span>
+        <label for="part_of_speech_noun">名詞</label>
+        <input type="radio" name="part_of_speech" id="part_of_speech_noun" value="名詞" required>
+        <label for="part_of_speech_verb">動詞</label>
+        <input type="radio" name="part_of_speech" id="part_of_speech_verb" value="動詞" required>
+        <label for="part_of_speech_adjective">形容詞</label>
+        <input type="radio" name="part_of_speech" id="part_of_speech_adjective" value="形容詞" required>
+        <label for="part_of_speech_adverb">副詞</label>
+        <input type="radio" name="part_of_speech" id="part_of_speech_adverb" value="副詞" required>
+        <label for="part_of_speech_preposition">前置詞</label>
+        <input type="radio" name="part_of_speech" id="part_of_speech_preposition" value="前置詞" required>
       </div>
       <div class="test__inner">
         <button type="submit">追加</button>

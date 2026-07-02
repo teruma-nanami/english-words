@@ -24,10 +24,9 @@ class AdminRequest extends FormRequest
 		return [
 			'english' => 'required|string|max:255',
 			'japanese' => 'required|string|max:255',
-			'e-sentence' => 'nullable|string|max:255',
-			'j-sentence' => 'nullable|string|max:255',
+			'part_of_speech' => 'required|in:名詞,動詞,形容詞,副詞,前置詞',
 			'wordbook_id' => 'required|integer|exists:wordbooks,id',
-			'order' => 'required|integer|min:1',
+			'order' => 'nullable|integer|min:1',
 		];
 	}
 
@@ -36,8 +35,8 @@ class AdminRequest extends FormRequest
 		return [
 			'english.required' => '英単語は必須です。',
 			'japanese.required' => '日本語訳は必須です。',
+			'part_of_speech.required' => '品詞の選択は必須です。',
 			'wordbook_id.required' => '単語帳の選択は必須です。',
-			'order.required' => '順序は必須です。',
 			'order.min' => '順序は1以上である必要があります。',
 		];
 	}

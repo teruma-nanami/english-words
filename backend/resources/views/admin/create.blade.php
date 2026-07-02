@@ -13,7 +13,7 @@
         <label for="wordbook">単語帳を選択：</label>
         <select name="wordbook_id" id="wordbook">
           @foreach ($wordbooks as $wordbook)
-            <option value="{{ $wordbook->id }}">{{ $wordbook->name }}</option>
+            <option value="{{ $wordbook->id }}" {{ request('wordbook_id') == $wordbook->id ? 'selected' : '' }}>{{ $wordbook->name }}</option>
           @endforeach
         </select>
       </div>

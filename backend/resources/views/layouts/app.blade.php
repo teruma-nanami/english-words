@@ -29,7 +29,7 @@
           @if (auth()->check())
           <li><a href="{{ route('test') }}">単語テスト</a></li>
           <li><a href="{{ route('list') }}">単語一覧</a></li>
-          <li><a href="{{ route('create') }}">単語の追加</a></li>
+          <li><a href="{{ route('create.wordbook') }}">単語の追加</a></li>
           <li><a href="{{ route('add') }}">単語帳の追加</a></li>
             <li>
               <form action="/logout" method="POST">

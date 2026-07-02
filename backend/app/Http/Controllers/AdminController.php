@@ -34,6 +34,12 @@ class AdminController extends Controller
 		$word->wordbooks()->syncWithoutDetaching([$wordbookId => ['order' => $order]]);
 		return redirect()->route('list')->with('success', '単語帳への紐づけが変更されました');
 	}
+	public function selectWordbook()
+	{
+		$wordbooks = Wordbook::all();
+		return view('admin.select-wordbook', compact('wordbooks'));
+	}
+
 	public function create()
 	{
 		$wordbooks = Wordbook::all();
@@ -51,7 +57,7 @@ class AdminController extends Controller
 		$wordbookId = $request->input('wordbook_id');
 		$order = $request->input('order');
 		$word->wordbooks()->attach($wordbookId, ['order' => $order]);
-		return redirect()->route('create')->with('success', '単語を追加しました');
+		return redirect()->route('create', ['wordbook_id' => $wordbookId])->with('success', '単語を追加しました');
 	}
 	public function add()
 	{

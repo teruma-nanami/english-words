@@ -26,6 +26,7 @@ Route::middleware(['auth'])->group(function () {
   Route::get('/list', [AdminController::class, 'list'])->name('list');
   Route::get('/edit/{id}', [AdminController::class, 'edit'])->name('edit');
   Route::put('/edit/{id}', [AdminController::class, 'update'])->name('update');
+  Route::get('/create-wordbook', [AdminController::class, 'selectWordbook'])->name('create.wordbook');
   Route::get('/create', [AdminController::class, 'create'])->name('create');
   Route::post('/create', [AdminController::class, 'store'])->name('store');
   Route::get('/add', [AdminController::class, 'add'])->name('add');

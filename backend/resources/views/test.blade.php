@@ -10,20 +10,21 @@
     <form action="{{ route('test.start') }}" method="POST">
       @csrf
       <div class="test__inner">
-        <label for="start_id">No.</label>
-        <input type="number" name="start_id" id="start_id" required>
-        →
-        <label for="end_id">No.</label>
-        <input type="number" name="end_id" id="end_id" required>
+        <label for="wordbook_id">単語帳を選択：</label>
+        <select name="wordbook_id" id="wordbook_id">
+          @foreach ($wordbooks as $wordbookOption)
+            <option value="{{ $wordbookOption->id }}" {{ old('wordbook_id') == $wordbookOption->id ? 'selected' : '' }}>{{ $wordbookOption->name }}</option>
+          @endforeach
+        </select>
+        <label for="count">出題数</label>
+        <input type="number" name="count" id="count" value="{{ old('count', 20) }}" min="1" required>
         <button type="submit">テスト開始！</button>
       </div>
     </form>
 
     @isset($words)
       <div class="info__inner">
-        <p>単語の始まりのID: {{ $startId }}</p>
-        <p>→</p>
-        <p>単語の終わりのID: {{ $endId }}</p>
+        <p>単語帳: {{ $wordbook->name }}</p>
       </div>
       <div id="quiz">
         @foreach ($words as $index => $word)

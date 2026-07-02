@@ -19,7 +19,7 @@
       </div>
       <div class="inner__text">
         <label for="order">Order:</label>
-        <input type="number" name="order" id="order">
+        <input type="number" name="order" id="order" required>
       </div>
       <div class="inner__text">
         <label for="english">英単語</label>

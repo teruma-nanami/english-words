@@ -24,7 +24,8 @@ class DatabaseSeeder extends Seeder
       ]);
       Word::create([
         'english' => 'change',
-        'japanese' => 'を変える'
+        'japanese' => 'を変える',
+        'part_of_speech' => '動詞'
       ]);
     }
 }

@@ -2,60 +2,69 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
-use App\Models\Word;
-use App\Models\Wordbook;
 use App\Http\Requests\AdminRequest;
 use App\Http\Requests\WordbookRequest;
+use App\UseCases\Admin\CreateWordbookUseCase;
+use App\UseCases\Admin\CreateWordUseCase;
+use App\UseCases\Admin\ShowWordbookSelectionFormUseCase;
+use App\UseCases\Admin\ShowWordCreateFormUseCase;
+use App\UseCases\Admin\ShowWordEditFormUseCase;
+use App\UseCases\Admin\UpdateWordUseCase;
+use App\UseCases\Word\ListWordsUseCase;
 
 class AdminController extends Controller
 {
+	public function __construct(
+		private ListWordsUseCase $listWordsUseCase,
+		private ShowWordEditFormUseCase $showWordEditFormUseCase,
+		private UpdateWordUseCase $updateWordUseCase,
+		private ShowWordbookSelectionFormUseCase $showWordbookSelectionFormUseCase,
+		private ShowWordCreateFormUseCase $showWordCreateFormUseCase,
+		private CreateWordUseCase $createWordUseCase,
+		private CreateWordbookUseCase $createWordbookUseCase,
+	) {
+	}
+
 	public function list()
 	{
-		$words = Word::paginate(100);
-		$wordbooks = Wordbook::all();
-		return view('admin.list', compact('words', 'wordbooks'));
+		$data = $this->listWordsUseCase->execute();
+		return view('admin.list', $data);
 	}
 	public function edit($id)
 	{
-		$word = Word::find($id);
-		$wordbooks = Wordbook::all();
-		$currentWordbookId = $word->wordbooks->first() ? $word->wordbooks->first()->id : null;
-		$currentOrder = $word->wordbooks->first() ? $word->wordbooks->first()->pivot->order : null;
-		return view('admin.edit', compact('word', 'wordbooks', 'currentWordbookId', 'currentOrder'));
+		$data = $this->showWordEditFormUseCase->execute($id);
+		return view('admin.edit', $data);
 	}
 
 	public function update(AdminRequest $request, $id)
 	{
-		$word = Word::find($id);
-		$word->update($request->only(['english', 'japanese', 'part_of_speech']));
+		$wordData = $request->only(['english', 'japanese', 'part_of_speech']);
 		$wordbookId = $request->input('wordbook_id');
 		$order = $request->input('order');
-		$word->wordbooks()->syncWithoutDetaching([$wordbookId => ['order' => $order]]);
+		$this->updateWordUseCase->execute($id, $wordData, $wordbookId, $order);
 		return redirect()->route('list')->with('success', '単語帳への紐づけが変更されました');
 	}
 	public function selectWordbook()
 	{
-		$wordbooks = Wordbook::all();
-		return view('admin.select-wordbook', compact('wordbooks'));
+		$data = $this->showWordbookSelectionFormUseCase->execute();
+		return view('admin.select-wordbook', $data);
 	}
 
 	public function create()
 	{
-		$wordbooks = Wordbook::all();
-		return view('admin.create', compact('wordbooks'));
+		$data = $this->showWordCreateFormUseCase->execute();
+		return view('admin.create', $data);
 	}
 	public function store(AdminRequest $request)
 	{
-		$word = Word::firstOrCreate([
+		$wordData = [
 			'english' => $request->english,
 			'japanese' => $request->japanese,
 			'part_of_speech' => $request->part_of_speech,
-		]);
-		// 単語帳に単語を追加
+		];
 		$wordbookId = $request->input('wordbook_id');
 		$order = $request->input('order');
-		$word->wordbooks()->attach($wordbookId, ['order' => $order]);
+		$this->createWordUseCase->execute($wordData, $wordbookId, $order);
 		return redirect()->route('create', ['wordbook_id' => $wordbookId])->with('success', '単語を追加しました');
 	}
 	public function add()
@@ -64,7 +73,7 @@ class AdminController extends Controller
 	}
 	public function books(WordbookRequest $request)
 	{
-		Wordbook::create($request->all());
+		$this->createWordbookUseCase->execute($request->all());
 		return redirect()->route('list')->with('success', '単語帳を追加しました');
 	}
 }

@@ -2,9 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
 use App\Models\Word;
 use App\Models\Wordbook;
+use App\Http\Requests\TestRequest;
 
 class HomeController extends Controller
 {
@@ -15,23 +15,18 @@ class HomeController extends Controller
 		return view('index', compact('words', 'wordbooks'));
 	}
 
-	public function test(Request $request)
+	public function test()
 	{
-		$startId = $request->input('start_id');
-		$endId = $request->input('end_id');
-		$randomWords = Word::whereBetween('id', [$startId, $endId])->inRandomOrder()->limit(50)->get();
-		return view('test', compact('randomWords'));
+		$wordbooks = Wordbook::all();
+		return view('test', compact('wordbooks'));
 	}
 
-	public function startTest(Request $request)
+	public function startTest(TestRequest $request)
 	{
-		// 入力されたID範囲を取得
-		$startId = $request->input('start_id');
-		$endId = $request->input('end_id');
+		$wordbooks = Wordbook::all();
+		$wordbook = Wordbook::find($request->wordbook_id);
+		$words = $wordbook->words()->inRandomOrder()->limit($request->count)->get();
 
-		// データベースから指定範囲の単語を取得しランダムに並び替える
-		$words = Word::whereBetween('id', [$startId, $endId])->inRandomOrder()->limit(50)->get();
-
-		return view('test', compact('words', 'startId', 'endId'));
+		return view('test', compact('words', 'wordbook', 'wordbooks'));
 	}
 }

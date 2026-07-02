@@ -1,0 +1,25 @@
+<?php
+
+namespace App\Repositories;
+
+use App\Models\Wordbook;
+use App\Interfaces\WordbookRepositoryInterface;
+use Illuminate\Database\Eloquent\Collection;
+
+class WordbookRepository implements WordbookRepositoryInterface
+{
+	public function all(): Collection
+	{
+		return Wordbook::all();
+	}
+
+	public function find(int $id): ?Wordbook
+	{
+		return Wordbook::find($id);
+	}
+
+	public function getRandomWords(Wordbook $wordbook, int $count): Collection
+	{
+		return $wordbook->words()->inRandomOrder()->limit($count)->get();
+	}
+}

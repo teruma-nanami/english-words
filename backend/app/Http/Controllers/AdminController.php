@@ -28,7 +28,7 @@ class AdminController extends Controller
 	public function update(AdminRequest $request, $id)
 	{
 		$word = Word::find($id);
-		$word->update($request->only(['english', 'japanese', 'e_sentence', 'j_sentence']));
+		$word->update($request->only(['english', 'japanese', 'part_of_speech']));
 		$wordbookId = $request->input('wordbook_id');
 		$order = $request->input('order');
 		$word->wordbooks()->syncWithoutDetaching([$wordbookId => ['order' => $order]]);
@@ -50,8 +50,7 @@ class AdminController extends Controller
 		$word = Word::firstOrCreate([
 			'english' => $request->english,
 			'japanese' => $request->japanese,
-			'e_sentence' => $request->e_sentence,
-			'j_sentence' => $request->j_sentence
+			'part_of_speech' => $request->part_of_speech,
 		]);
 		// 単語帳に単語を追加
 		$wordbookId = $request->input('wordbook_id');

@@ -55,8 +55,10 @@ function AdminWordList() {
     setDeleteError(null)
 
     deleteAdminWord(id)
-      .then(() => {
-        setWords((prev) => prev.filter((word) => word.id !== id))
+      .then(() => fetchAdminWords(currentPage))
+      .then((response) => {
+        setWords(response.data)
+        setMeta(response.meta)
       })
       .catch(() => {
         setDeleteError('単語の削除に失敗しました。')

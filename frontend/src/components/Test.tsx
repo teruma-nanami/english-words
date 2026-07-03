@@ -62,6 +62,11 @@ function Test() {
 
     fetchTest(selectedWordbookId, questionCount)
       .then((response) => {
+        if (response.data.words.length === 0) {
+          setSubmitError('選択した単語帳に出題できる単語がありません。')
+          return
+        }
+
         setTestWordbook(response.data.wordbook)
         setWords(response.data.words)
         setCurrentIndex(0)

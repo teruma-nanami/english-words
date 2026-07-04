@@ -19,6 +19,11 @@ function Header() {
                 単語テスト
               </Link>
             </li>
+            <li>
+              <Link to="/admin/words" className="text-gray-700 hover:text-green-600">
+                管理
+              </Link>
+            </li>
           </ul>
         </nav>
       </div>

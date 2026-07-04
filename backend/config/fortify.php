@@ -77,6 +77,20 @@ return [
 
     /*
     |--------------------------------------------------------------------------
+    | Redirects
+    |--------------------------------------------------------------------------
+    |
+    | Here you may override the redirect path for individual Fortify actions.
+    | Any action not listed here falls back to the "home" path above.
+    |
+    */
+
+    'redirects' => [
+        'login' => env('FRONTEND_URL', 'http://localhost:3000').'/admin/words',
+    ],
+
+    /*
+    |--------------------------------------------------------------------------
     | Fortify Routes Prefix / Subdomain
     |--------------------------------------------------------------------------
     |

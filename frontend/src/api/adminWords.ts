@@ -1,8 +1,9 @@
 import type { WordListResponse } from '../types/word'
+import { adminFetch } from './httpClient'
 
 export async function fetchAdminWords(page: number): Promise<WordListResponse> {
   const baseUrl = import.meta.env.VITE_API_BASE_URL
-  const res = await fetch(`${baseUrl}/admin/words?page=${page}`)
+  const res = await adminFetch(`${baseUrl}/admin/words?page=${page}`)
 
   if (!res.ok) {
     throw new Error('単語一覧の取得に失敗しました。')
@@ -13,7 +14,7 @@ export async function fetchAdminWords(page: number): Promise<WordListResponse> {
 
 export async function deleteAdminWord(id: number): Promise<void> {
   const baseUrl = import.meta.env.VITE_API_BASE_URL
-  const res = await fetch(`${baseUrl}/admin/words/${id}`, {
+  const res = await adminFetch(`${baseUrl}/admin/words/${id}`, {
     method: 'DELETE',
   })
 

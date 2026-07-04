@@ -1,4 +1,5 @@
 import { Route, Routes } from 'react-router-dom'
+import AdminRoute from './components/AdminRoute'
 import AdminWordList from './components/AdminWordList'
 import Header from './components/Header'
 import Test from './components/Test'
@@ -12,7 +13,9 @@ function App() {
       <Routes>
         <Route path="/" element={<WordList />} />
         <Route path="/test" element={<Test />} />
-        <Route path="/admin/words" element={<AdminWordList />} />
+        <Route path="/admin" element={<AdminRoute />}>
+          <Route path="words" element={<AdminWordList />} />
+        </Route>
       </Routes>
     </>
   )

@@ -1,7 +1,7 @@
 import { useState, type FormEvent } from 'react'
-import { useNavigate, useParams } from 'react-router-dom'
+import { Link, useNavigate, useParams } from 'react-router-dom'
 import { createAdminWord } from '../api/adminWords'
-import type { PartOfSpeech } from '../types/word'
+import { PART_OF_SPEECH_BADGE_STYLES, type PartOfSpeech } from '../types/word'
 
 const PART_OF_SPEECH_OPTIONS: PartOfSpeech[] = ['名詞', '動詞', '形容詞', '副詞', '前置詞']
 
@@ -45,7 +45,12 @@ function AdminWordCreate() {
   return (
     <div className="min-h-screen bg-white px-4 py-10">
       <div className="mx-auto max-w-3xl">
-        <h1 className="mb-6 border-b-4 border-green-500 pb-2 text-3xl font-bold text-gray-900">単語を追加</h1>
+        <div className="mb-6 border-b-4 border-green-500 pb-2">
+          <Link to="/admin/words" className="text-sm text-green-600 hover:underline">
+            ← 単語一覧へ戻る
+          </Link>
+          <h1 className="mt-2 text-3xl font-bold text-gray-900">単語を追加</h1>
+        </div>
 
         <form onSubmit={handleSubmit} className="space-y-4 rounded-lg border border-gray-200 p-6 shadow-sm">
           <div>
@@ -78,9 +83,14 @@ function AdminWordCreate() {
 
           <fieldset>
             <legend className="mb-1 text-sm font-medium text-gray-700">品詞</legend>
-            <div className="flex flex-wrap gap-4">
+            <div className="flex flex-wrap gap-2">
               {PART_OF_SPEECH_OPTIONS.map((option) => (
-                <label key={option} className="flex items-center gap-1.5 text-sm text-gray-700">
+                <label
+                  key={option}
+                  className={`cursor-pointer rounded-full px-3 py-1 text-sm font-semibold has-[:focus-visible]:ring-2 has-[:focus-visible]:ring-green-500 has-[:focus-visible]:ring-offset-1 ${
+                    partOfSpeech === option ? PART_OF_SPEECH_BADGE_STYLES[option] : 'bg-gray-100 text-gray-500'
+                  }`}
+                >
                   <input
                     type="radio"
                     name="part_of_speech"
@@ -88,6 +98,7 @@ function AdminWordCreate() {
                     required
                     checked={partOfSpeech === option}
                     onChange={() => setPartOfSpeech(option)}
+                    className="sr-only"
                   />
                   {option}
                 </label>

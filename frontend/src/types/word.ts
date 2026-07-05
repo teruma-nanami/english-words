@@ -15,6 +15,14 @@ export const PART_OF_SPEECH_LABELS: Record<PartOfSpeech, string> = {
   前置詞: '前',
 }
 
+export const PART_OF_SPEECH_BADGE_STYLES: Record<PartOfSpeech, string> = {
+  名詞: 'bg-blue-100 text-blue-700',
+  動詞: 'bg-green-100 text-green-700',
+  形容詞: 'bg-purple-100 text-purple-700',
+  副詞: 'bg-amber-100 text-amber-700',
+  前置詞: 'bg-pink-100 text-pink-700',
+}
+
 export interface PaginationLinks {
   first: string | null
   last: string | null

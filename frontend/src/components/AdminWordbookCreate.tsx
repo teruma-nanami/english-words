@@ -35,8 +35,8 @@ function AdminWordbookCreate() {
         <h1 className="mb-6 border-b-4 border-green-500 pb-2 text-3xl font-bold text-gray-900">単語帳を追加</h1>
 
         <form onSubmit={handleSubmit} className="space-y-4 rounded-lg border border-gray-200 p-6 shadow-sm">
-          <div>
-            <label htmlFor="name" className="mb-1 block text-sm font-medium text-gray-700">
+          <div className="flex items-center gap-3">
+            <label htmlFor="name" className="w-20 shrink-0 text-sm font-medium text-gray-700">
               単語帳名
             </label>
             <input
@@ -45,7 +45,7 @@ function AdminWordbookCreate() {
               required
               value={name}
               onChange={(event) => setName(event.target.value)}
-              className="w-full rounded-md border border-gray-300 px-3 py-2 text-sm text-gray-900 focus:border-green-500 focus:outline-none"
+              className="flex-1 rounded-md border border-gray-300 px-3 py-2 text-sm text-gray-900 focus:border-green-500 focus:outline-none"
             />
           </div>
 

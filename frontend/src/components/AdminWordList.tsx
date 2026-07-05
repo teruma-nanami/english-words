@@ -1,15 +1,7 @@
 import { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { deleteAdminWord, fetchAdminWords } from '../api/adminWords'
-import { PART_OF_SPEECH_LABELS, type PartOfSpeech, type PaginationMeta, type Word } from '../types/word'
-
-const PART_OF_SPEECH_BADGE_STYLES: Record<PartOfSpeech, string> = {
-  名詞: 'bg-blue-100 text-blue-700',
-  動詞: 'bg-green-100 text-green-700',
-  形容詞: 'bg-purple-100 text-purple-700',
-  副詞: 'bg-amber-100 text-amber-700',
-  前置詞: 'bg-pink-100 text-pink-700',
-}
+import { PART_OF_SPEECH_BADGE_STYLES, PART_OF_SPEECH_LABELS, type PaginationMeta, type Word } from '../types/word'
 
 function AdminWordList() {
   const [words, setWords] = useState<Word[]>([])

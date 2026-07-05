@@ -18,20 +18,16 @@
           <label for="email">メールアドレス
             <input type="text" name="email" placeholder="メールアドレス"></label>
         </div>
-        <div class="form__error">
-          @error('email')
-            {{ $message }}
-          @enderror
-        </div>
+        @error('email')
+          <div class="form__error">{{ $message }}</div>
+        @enderror
         <div class="form__inner-text">
           <label for="password">パスワード
             <input type="password" name="password" placeholder="Password"></label>
         </div>
-        <div class="form__error">
-          @error('password')
-            {{ $message }}
-          @enderror
-        </div>
+        @error('password')
+          <div class="form__error">{{ $message }}</div>
+        @enderror
         <div class="form__button">
           <button type="submit">ログインする</button>
         </div>

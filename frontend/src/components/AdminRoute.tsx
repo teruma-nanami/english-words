@@ -1,29 +1,18 @@
-import { useEffect, useState } from 'react'
+import { useEffect } from 'react'
 import { Outlet } from 'react-router-dom'
-import { adminFetch } from '../api/httpClient'
+import { getBackendOrigin } from '../api/httpClient'
+import { useCurrentUser } from '../hooks/useCurrentUser'
 
 function AdminRoute() {
-  const [checked, setChecked] = useState(false)
+  const { isAuthenticated, loading } = useCurrentUser()
 
   useEffect(() => {
-    let ignore = false
-    const baseUrl = import.meta.env.VITE_API_BASE_URL
-
-    adminFetch(`${baseUrl}/user`)
-      .then(() => {
-        if (ignore) return
-        setChecked(true)
-      })
-      .catch(() => {
-        // 未認証時はadminFetch内でログイン画面へ遷移済み
-      })
-
-    return () => {
-      ignore = true
+    if (!loading && !isAuthenticated) {
+      window.location.href = `${getBackendOrigin()}/login`
     }
-  }, [])
+  }, [loading, isAuthenticated])
 
-  if (!checked) {
+  if (loading || !isAuthenticated) {
     return <p className="px-4 py-10 text-center text-gray-500">確認中...</p>
   }
 

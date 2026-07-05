@@ -43,3 +43,20 @@ export async function adminFetch(url: string, options: RequestInit = {}): Promis
 
   return res
 }
+
+export async function logout(): Promise<void> {
+  await ensureCsrfCookie()
+
+  const headers = new Headers()
+  const token = readCookie('XSRF-TOKEN')
+  if (token) {
+    headers.set('X-XSRF-TOKEN', token)
+  }
+
+  await fetch(`${getBackendOrigin()}/logout`, {
+    method: 'POST',
+    credentials: 'include',
+    redirect: 'manual',
+    headers,
+  })
+}

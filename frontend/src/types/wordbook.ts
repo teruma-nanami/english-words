@@ -6,3 +6,7 @@ export interface Wordbook {
 export interface WordbookListResponse {
   data: Wordbook[]
 }
+
+export interface CreateWordbookPayload {
+  name: string
+}

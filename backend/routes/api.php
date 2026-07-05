@@ -30,6 +30,7 @@ Route::get('/test', [TestController::class, 'index'])->name('api.test.index');
 Route::middleware('auth:sanctum')->prefix('admin')->name('api.admin.')->group(function () {
     Route::get('/words', [AdminWordController::class, 'index'])->name('words.index');
     Route::post('/words', [AdminWordController::class, 'store'])->name('words.store');
+    Route::get('/words/{word}', [AdminWordController::class, 'show'])->name('words.show');
     Route::put('/words/{word}', [AdminWordController::class, 'update'])->name('words.update');
     Route::delete('/words/{word}', [AdminWordController::class, 'destroy'])->name('words.destroy');
     Route::get('/wordbooks', [AdminWordbookController::class, 'index'])->name('wordbooks.index');

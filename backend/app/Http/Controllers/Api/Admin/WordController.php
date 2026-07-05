@@ -8,6 +8,7 @@ use App\Http\Resources\WordResource;
 use App\Models\Word;
 use App\UseCases\Admin\CreateWordUseCase;
 use App\UseCases\Admin\DeleteWordUseCase;
+use App\UseCases\Admin\ShowWordUseCase;
 use App\UseCases\Admin\UpdateWordUseCase;
 use App\UseCases\Api\Word\ListWordsUseCase;
 
@@ -16,6 +17,7 @@ class WordController extends Controller
 	public function __construct(
 		private ListWordsUseCase $listWordsUseCase,
 		private CreateWordUseCase $createWordUseCase,
+		private ShowWordUseCase $showWordUseCase,
 		private UpdateWordUseCase $updateWordUseCase,
 		private DeleteWordUseCase $deleteWordUseCase,
 	) {
@@ -36,6 +38,12 @@ class WordController extends Controller
 		];
 		$this->createWordUseCase->execute($wordData, $request->wordbook_id, $request->order);
 		return response()->noContent(201);
+	}
+
+	public function show(Word $word)
+	{
+		$word = $this->showWordUseCase->execute($word->id);
+		return new WordResource($word);
 	}
 
 	public function update(AdminRequest $request, Word $word)

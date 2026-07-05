@@ -1,4 +1,4 @@
-import type { WordbookListResponse } from '../types/wordbook'
+import type { CreateWordbookPayload, WordbookListResponse } from '../types/wordbook'
 import { adminFetch } from './httpClient'
 
 export async function fetchAdminWordbooks(): Promise<WordbookListResponse> {
@@ -10,4 +10,17 @@ export async function fetchAdminWordbooks(): Promise<WordbookListResponse> {
   }
 
   return res.json() as Promise<WordbookListResponse>
+}
+
+export async function createAdminWordbook(payload: CreateWordbookPayload): Promise<void> {
+  const baseUrl = import.meta.env.VITE_API_BASE_URL
+  const res = await adminFetch(`${baseUrl}/admin/wordbooks`, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(payload),
+  })
+
+  if (!res.ok) {
+    throw new Error('単語帳の登録に失敗しました。')
+  }
 }

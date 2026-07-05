@@ -21,12 +21,18 @@ class AdminRequest extends FormRequest
 	 */
 	public function rules(): array
 	{
+		$isUpdate = $this->isMethod('put');
+
 		return [
 			'english' => 'required|string|max:255',
 			'japanese' => 'required|string|max:255',
 			'part_of_speech' => 'required|in:名詞,動詞,形容詞,副詞,前置詞',
-			'wordbook_id' => 'required|integer|exists:wordbooks,id',
-			'order' => 'required|integer|min:1',
+			'wordbook_id' => $isUpdate
+				? 'required_with:order|integer|exists:wordbooks,id'
+				: 'required|integer|exists:wordbooks,id',
+			'order' => $isUpdate
+				? 'required_with:wordbook_id|integer|min:1'
+				: 'required|integer|min:1',
 		];
 	}
 
@@ -37,7 +43,9 @@ class AdminRequest extends FormRequest
 			'japanese.required' => '日本語訳は必須です。',
 			'part_of_speech.required' => '品詞の選択は必須です。',
 			'wordbook_id.required' => '単語帳の選択は必須です。',
+			'wordbook_id.required_with' => '順序を指定する場合は単語帳の選択も必須です。',
 			'order.required' => '順序は必須です。',
+			'order.required_with' => '単語帳を指定する場合は順序も必須です。',
 			'order.min' => '順序は1以上である必要があります。',
 		];
 	}

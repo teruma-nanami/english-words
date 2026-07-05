@@ -2,6 +2,7 @@ import { Route, Routes } from 'react-router-dom'
 import AdminRoute from './components/AdminRoute'
 import AdminWordbookSelect from './components/AdminWordbookSelect'
 import AdminWordCreate from './components/AdminWordCreate'
+import AdminWordEdit from './components/AdminWordEdit'
 import AdminWordList from './components/AdminWordList'
 import Header from './components/Header'
 import Test from './components/Test'
@@ -19,6 +20,7 @@ function App() {
           <Route path="words" element={<AdminWordList />} />
           <Route path="words/create-wordbook" element={<AdminWordbookSelect />} />
           <Route path="words/create-wordbook/:wordbookId" element={<AdminWordCreate />} />
+          <Route path="words/:id/edit" element={<AdminWordEdit />} />
         </Route>
       </Routes>
     </>

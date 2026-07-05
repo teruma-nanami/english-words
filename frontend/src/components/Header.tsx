@@ -1,6 +1,18 @@
 import { Link } from 'react-router-dom'
+import { getBackendOrigin, logout } from '../api/httpClient'
+import { useCurrentUser } from '../hooks/useCurrentUser'
 
 function Header() {
+  const { isAuthenticated } = useCurrentUser()
+
+  const handleLogout = async () => {
+    try {
+      await logout()
+    } finally {
+      window.location.href = `${getBackendOrigin()}/login`
+    }
+  }
+
   return (
     <header className="border-b border-gray-200 bg-white">
       <div className="mx-auto flex max-w-3xl items-center justify-between px-4 py-4">
@@ -8,7 +20,7 @@ function Header() {
           英単語テスト
         </Link>
         <nav>
-          <ul className="flex gap-6 text-sm font-medium">
+          <ul className="flex items-center gap-6 text-sm font-medium">
             <li>
               <Link to="/" className="text-gray-700 hover:text-green-600">
                 単語一覧
@@ -24,6 +36,13 @@ function Header() {
                 管理
               </Link>
             </li>
+            {isAuthenticated && (
+              <li>
+                <button type="button" onClick={handleLogout} className="text-gray-700 hover:text-green-600">
+                  ログアウト
+                </button>
+              </li>
+            )}
           </ul>
         </nav>
       </div>

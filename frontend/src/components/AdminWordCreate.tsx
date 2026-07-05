@@ -52,9 +52,9 @@ function AdminWordCreate() {
           <h1 className="mt-2 text-3xl font-bold text-gray-900">単語を追加</h1>
         </div>
 
-        <form onSubmit={handleSubmit} className="space-y-4 rounded-lg border border-gray-200 p-6 shadow-sm">
-          <div>
-            <label htmlFor="english" className="mb-1 block text-sm font-medium text-gray-700">
+        <form onSubmit={handleSubmit} className="space-y-6 rounded-lg border border-gray-200 p-6 shadow-sm">
+          <div className="flex items-center gap-3">
+            <label htmlFor="english" className="w-20 shrink-0 text-sm font-medium text-gray-700">
               英単語
             </label>
             <input
@@ -63,12 +63,12 @@ function AdminWordCreate() {
               required
               value={english}
               onChange={(event) => setEnglish(event.target.value)}
-              className="w-full rounded-md border border-gray-300 px-3 py-2 text-sm text-gray-900 focus:border-green-500 focus:outline-none"
+              className="flex-1 rounded-md border border-gray-300 px-3 py-2 text-sm text-gray-900 focus:border-green-500 focus:outline-none"
             />
           </div>
 
-          <div>
-            <label htmlFor="japanese" className="mb-1 block text-sm font-medium text-gray-700">
+          <div className="flex items-center gap-3">
+            <label htmlFor="japanese" className="w-20 shrink-0 text-sm font-medium text-gray-700">
               日本語
             </label>
             <input
@@ -77,13 +77,18 @@ function AdminWordCreate() {
               required
               value={japanese}
               onChange={(event) => setJapanese(event.target.value)}
-              className="w-full rounded-md border border-gray-300 px-3 py-2 text-sm text-gray-900 focus:border-green-500 focus:outline-none"
+              className="flex-1 rounded-md border border-gray-300 px-3 py-2 text-sm text-gray-900 focus:border-green-500 focus:outline-none"
             />
           </div>
 
-          <fieldset>
-            <legend className="mb-1 text-sm font-medium text-gray-700">品詞</legend>
-            <div className="flex flex-wrap gap-2">
+          <div className="flex items-start gap-3">
+            <span id="part-of-speech-label" className="w-20 shrink-0 pt-1 text-sm font-medium text-gray-700">
+              品詞
+            </span>
+            <fieldset
+              aria-labelledby="part-of-speech-label"
+              className="m-0 min-w-0 flex flex-1 flex-wrap gap-2 border-0 p-0"
+            >
               {PART_OF_SPEECH_OPTIONS.map((option) => (
                 <label
                   key={option}
@@ -103,11 +108,11 @@ function AdminWordCreate() {
                   {option}
                 </label>
               ))}
-            </div>
-          </fieldset>
+            </fieldset>
+          </div>
 
-          <div>
-            <label htmlFor="order" className="mb-1 block text-sm font-medium text-gray-700">
+          <div className="flex items-center gap-3">
+            <label htmlFor="order" className="w-20 shrink-0 text-sm font-medium text-gray-700">
               No
             </label>
             <input
@@ -117,7 +122,7 @@ function AdminWordCreate() {
               required
               value={order}
               onChange={(event) => setOrder(event.target.value)}
-              className="w-full rounded-md border border-gray-300 px-3 py-2 text-sm text-gray-900 focus:border-green-500 focus:outline-none"
+              className="flex-1 rounded-md border border-gray-300 px-3 py-2 text-sm text-gray-900 focus:border-green-500 focus:outline-none"
             />
           </div>
 

@@ -36,8 +36,14 @@ function AdminWordbookSelect() {
   return (
     <div className="min-h-screen bg-white px-4 py-10">
       <div className="mx-auto max-w-3xl">
-        <div className="mb-6 border-b-4 border-green-500 pb-2">
+        <div className="mb-6 flex items-center justify-between border-b-4 border-green-500 pb-2">
           <h1 className="text-3xl font-bold text-gray-900">単語帳を選択</h1>
+          <Link
+            to="/admin/wordbooks/add"
+            className="rounded-md bg-green-600 px-4 py-2 text-sm font-medium text-white hover:bg-green-700"
+          >
+            単語帳を追加する
+          </Link>
         </div>
 
         {loading && <p className="text-gray-500">読み込み中...</p>}
@@ -48,14 +54,7 @@ function AdminWordbookSelect() {
           </p>
         )}
 
-        {!loading && !error && wordbooks.length === 0 && (
-          <p className="text-gray-700">
-            単語帳がありません。
-            <Link to="/admin/wordbooks/add" className="text-green-600 hover:underline">
-              単語帳を追加する
-            </Link>
-          </p>
-        )}
+        {!loading && !error && wordbooks.length === 0 && <p className="text-gray-700">単語帳がありません。</p>}
 
         {!loading && !error && wordbooks.length > 0 && (
           <ul className="divide-y divide-gray-100 overflow-hidden rounded-lg border border-gray-200 shadow-sm">

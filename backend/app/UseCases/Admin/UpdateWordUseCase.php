@@ -11,10 +11,13 @@ class UpdateWordUseCase
 	) {
 	}
 
-	public function execute(int $id, array $wordData, int $wordbookId, int $order): void
+	public function execute(int $id, array $wordData, ?int $wordbookId = null, ?int $order = null): void
 	{
 		$word = $this->wordRepository->find($id);
 		$this->wordRepository->update($word, $wordData);
-		$this->wordRepository->syncWordbookWithoutDetaching($word, $wordbookId, $order);
+
+		if ($wordbookId !== null && $order !== null) {
+			$this->wordRepository->syncWordbookWithoutDetaching($word, $wordbookId, $order);
+		}
 	}
 }

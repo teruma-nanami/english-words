@@ -112,6 +112,17 @@
         color: $accent-color
       }
     }
+
+    &-cta {
+      display: inline-block;
+      border-radius: 6px;
+      padding: 8px 16px;
+      background-color: $accent-color;
+      color: #fff !important;
+    }
+    &-cta:hover {
+      background-color: #15803d;
+    }
   }
 }
 

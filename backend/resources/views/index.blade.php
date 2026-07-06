@@ -8,7 +8,7 @@
   <div class="container">
     <h2>単語一覧ページ</h2>
     <!-- 単語帳選択と検索フォーム -->
-    <form action="{{ route('create') }}" method="GET">
+    <form action="{{ route('index') }}" method="GET">
       <div class="inner__text">
         <label for="wordbook">単語帳を選択</label>
         <select name="wordbook_id" id="wordbook" onchange="this.form.submit()">

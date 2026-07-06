@@ -35,4 +35,6 @@ Route::middleware('auth:sanctum')->prefix('admin')->name('api.admin.')->group(fu
     Route::delete('/words/{word}', [AdminWordController::class, 'destroy'])->name('words.destroy');
     Route::get('/wordbooks', [AdminWordbookController::class, 'index'])->name('wordbooks.index');
     Route::post('/wordbooks', [AdminWordbookController::class, 'store'])->name('wordbooks.store');
+    Route::put('/wordbooks/{wordbook}', [AdminWordbookController::class, 'update'])->name('wordbooks.update');
+    Route::delete('/wordbooks/{wordbook}', [AdminWordbookController::class, 'destroy'])->name('wordbooks.destroy');
 });

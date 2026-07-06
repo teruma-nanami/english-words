@@ -1,7 +1,7 @@
 <?php
 
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\HomeController;
 
 /*
 |--------------------------------------------------------------------------
@@ -14,7 +14,10 @@ use App\Http\Controllers\HomeController;
 |
 */
 
+Route::fallback(function (Request $request) {
+    if ($request->is('api/*')) {
+        return response()->json(['message' => 'Not Found.'], 404);
+    }
 
-Route::get('/', [HomeController::class, 'index'])->name('index');
-Route::get('/test', [HomeController::class, 'test'])->name('test');
-Route::post('/test', [HomeController::class, 'startTest'])->name('test.start');
+    return response()->file(public_path('spa/index.html'));
+});

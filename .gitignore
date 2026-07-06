@@ -21,6 +21,9 @@ frontend/.env
 frontend/.env.local
 frontend/.env.*.local
 
+# React SPAビルド成果物（Laravel publicへ出力）
+backend/public/spa/
+
 # Codex
 .agents/
 

@@ -27,4 +27,15 @@ class WordbookRepository implements WordbookRepositoryInterface
 	{
 		return Wordbook::create($data);
 	}
+
+	public function update(Wordbook $wordbook, array $data): Wordbook
+	{
+		$wordbook->update($data);
+		return $wordbook;
+	}
+
+	public function delete(Wordbook $wordbook): void
+	{
+		$wordbook->delete();
+	}
 }

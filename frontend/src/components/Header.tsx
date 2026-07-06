@@ -36,6 +36,11 @@ function Header() {
                 管理
               </Link>
             </li>
+            <li>
+              <Link to="/admin/words/create-wordbook" className="text-gray-700 hover:text-green-600">
+                単語帳一覧
+              </Link>
+            </li>
             {isAuthenticated && (
               <li>
                 <button type="button" onClick={handleLogout} className="text-gray-700 hover:text-green-600">

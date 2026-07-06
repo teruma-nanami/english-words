@@ -22,28 +22,43 @@ function Header() {
         <nav>
           <ul className="flex items-center gap-6 text-sm font-medium">
             <li>
-              <Link to="/" className="text-gray-700 hover:text-green-600">
+              <Link to="/" className="text-green-600 hover:text-green-700">
                 単語一覧
               </Link>
             </li>
             <li>
-              <Link to="/test" className="text-gray-700 hover:text-green-600">
+              <Link to="/test" className="text-green-600 hover:text-green-700">
                 単語テスト
               </Link>
             </li>
             <li>
-              <Link to="/admin/words" className="text-gray-700 hover:text-green-600">
-                管理
-              </Link>
-            </li>
-            <li>
-              <Link to="/admin/words/create-wordbook" className="text-gray-700 hover:text-green-600">
-                単語帳一覧
-              </Link>
+              {isAuthenticated ? (
+                <Link to="/admin/words" className="text-green-600 hover:text-green-700">
+                  単語追加
+                </Link>
+              ) : (
+                <a
+                  href={`${getBackendOrigin()}/login`}
+                  className="rounded-md bg-green-600 px-4 py-2 text-white hover:bg-green-700"
+                >
+                  ログイン
+                </a>
+              )}
             </li>
             {isAuthenticated && (
               <li>
-                <button type="button" onClick={handleLogout} className="text-gray-700 hover:text-green-600">
+                <Link to="/admin/words/create-wordbook" className="text-green-600 hover:text-green-700">
+                  単語帳一覧
+                </Link>
+              </li>
+            )}
+            {isAuthenticated && (
+              <li>
+                <button
+                  type="button"
+                  onClick={handleLogout}
+                  className="rounded-md bg-green-600 px-4 py-2 text-white hover:bg-green-700"
+                >
                   ログアウト
                 </button>
               </li>

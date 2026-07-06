@@ -82,26 +82,24 @@
 .header__nav li a {
   border: none;
   background: none;
-  color: #374151;
+  color: #16a34a;
   font-size: 15.75px;
   line-height: 22.5px;
   font-weight: 500;
   cursor: pointer;
 }
 .header__nav li a:hover {
-  color: #16a34a;
+  color: #15803d;
 }
-.header__nav li .logout__button {
-  border: none;
-  background: none;
-  color: #374151;
-  font-size: 15.75px;
-  line-height: 22.5px;
-  font-weight: 500;
-  cursor: pointer;
+.header__nav-cta {
+  display: inline-block;
+  border-radius: 6px;
+  padding: 8px 16px;
+  background-color: #16a34a !important;
+  color: #fff !important;
 }
-.header__nav li .logout__button:hover {
-  color: #16a34a;
+.header__nav-cta:hover {
+  background-color: #15803d;
 }
 
 .alert-success {

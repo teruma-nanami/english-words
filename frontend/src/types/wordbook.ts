@@ -10,3 +10,7 @@ export interface WordbookListResponse {
 export interface CreateWordbookPayload {
   name: string
 }
+
+export interface UpdateWordbookPayload {
+  name: string
+}

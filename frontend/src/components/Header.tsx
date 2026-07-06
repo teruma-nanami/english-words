@@ -33,10 +33,7 @@ function Header() {
             </li>
             <li>
               {isAuthenticated ? (
-                <Link
-                  to="/admin/words"
-                  className="rounded-md bg-green-600 px-4 py-2 text-white hover:bg-green-700"
-                >
+                <Link to="/admin/words" className="text-green-600 hover:text-green-700">
                   単語追加
                 </Link>
               ) : (
@@ -57,7 +54,11 @@ function Header() {
             )}
             {isAuthenticated && (
               <li>
-                <button type="button" onClick={handleLogout} className="text-green-600 hover:text-green-700">
+                <button
+                  type="button"
+                  onClick={handleLogout}
+                  className="rounded-md bg-green-600 px-4 py-2 text-white hover:bg-green-700"
+                >
                   ログアウト
                 </button>
               </li>

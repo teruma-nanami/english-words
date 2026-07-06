@@ -99,18 +99,6 @@
       a:hover {
         color: $accent-hover-color;
       }
-      .logout__button {
-        border: none;
-        background: none;
-        color: $accent-color;
-        font-size: 15.75px;
-        line-height: 22.5px;
-        font-weight: 500;
-        cursor: pointer;
-      }
-      .logout__button:hover {
-        color: $accent-hover-color
-      }
     }
 
     &-cta {

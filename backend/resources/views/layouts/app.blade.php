@@ -26,11 +26,11 @@
             <li><a href="{{ config('services.frontend.url') }}/">単語一覧</a></li>
             <li><a href="{{ config('services.frontend.url') }}/test">単語テスト</a></li>
             @if (auth()->check())
-              <li><a href="{{ config('services.frontend.url') }}/admin/words" class="header__nav-cta">単語追加</a></li>
+              <li><a href="{{ config('services.frontend.url') }}/admin/words">単語追加</a></li>
               <li>
                 <form action="/logout" method="POST">
                   @csrf
-                  <button type="submit" class="logout__button"> <i class="bi bi-box-arrow-right"></i> ログアウト</button>
+                  <button type="submit" class="header__nav-cta"> <i class="bi bi-box-arrow-right"></i> ログアウト</button>
                 </form>
               </li>
             @else

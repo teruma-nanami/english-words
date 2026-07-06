@@ -7,6 +7,7 @@ use Illuminate\Database\Seeder;
 use App\Models\Wordbook;
 use App\Models\Word;
 use App\Models\User;
+use RuntimeException;
 
 class DatabaseSeeder extends Seeder
 {
@@ -15,9 +16,16 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
+      $adminEmail = config('app.admin_email');
+      $adminPassword = config('app.admin_password');
+
+      if (! $adminEmail || ! $adminPassword) {
+        throw new RuntimeException('ADMIN_EMAIL and ADMIN_PASSWORD must be set in .env before seeding.');
+      }
+
       User::create([
-        'email' => 'admin@example.com',
-        'password' => bcrypt('password'),
+        'email' => $adminEmail,
+        'password' => bcrypt($adminPassword),
       ]);
 			Wordbook::create([
         'name' => 'ターゲット1200'

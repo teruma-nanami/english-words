@@ -103,6 +103,16 @@
 .header__nav li .logout__button:hover {
   color: #16a34a;
 }
+.header__nav-cta {
+  display: inline-block;
+  border-radius: 6px;
+  padding: 8px 16px;
+  background-color: #16a34a;
+  color: #fff !important;
+}
+.header__nav-cta:hover {
+  background-color: #15803d;
+}
 
 .alert-success {
   background-color: #bdffc0;

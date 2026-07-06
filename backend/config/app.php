@@ -214,4 +214,18 @@ return [
         // 'ExampleClass' => App\Example\ExampleClass::class,
     ])->toArray(),
 
+    /*
+    |--------------------------------------------------------------------------
+    | Admin Seeder Credentials
+    |--------------------------------------------------------------------------
+    |
+    | DatabaseSeederが作成する管理者アカウントのemail・passwordです。
+    | 秘密情報のため、コードへハードコードせず.envで管理します。
+    |
+    */
+
+    'admin_email' => env('ADMIN_EMAIL'),
+
+    'admin_password' => env('ADMIN_PASSWORD'),
+
 ];

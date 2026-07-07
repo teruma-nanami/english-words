@@ -1,8 +1,12 @@
 import { useEffect, useState } from 'react'
+import { useNavigate } from 'react-router-dom'
 import { fetchWords } from '../api/words'
+import { useCurrentUser } from '../hooks/useCurrentUser'
 import { PART_OF_SPEECH_BADGE_STYLES, PART_OF_SPEECH_LABELS, type PaginationMeta, type Word } from '../types/word'
 
 function WordList() {
+  const { isAuthenticated } = useCurrentUser()
+  const navigate = useNavigate()
   const [words, setWords] = useState<Word[]>([])
   const [meta, setMeta] = useState<PaginationMeta | null>(null)
   const [currentPage, setCurrentPage] = useState(1)
@@ -62,7 +66,27 @@ function WordList() {
                 </thead>
                 <tbody className="divide-y divide-gray-100">
                   {words.map((word) => (
-                    <tr key={word.id} className="hover:bg-green-50">
+                    <tr
+                      key={word.id}
+                      onClick={isAuthenticated ? () => navigate(`/admin/words/${word.id}/edit`) : undefined}
+                      onKeyDown={
+                        isAuthenticated
+                          ? (event) => {
+                              if (event.key !== 'Enter' && event.key !== ' ') return
+                              event.preventDefault()
+                              navigate(`/admin/words/${word.id}/edit`)
+                            }
+                          : undefined
+                      }
+                      tabIndex={isAuthenticated ? 0 : undefined}
+                      role={isAuthenticated ? 'link' : undefined}
+                      aria-label={isAuthenticated ? `${word.english}を編集` : undefined}
+                      className={`hover:bg-green-50 ${
+                        isAuthenticated
+                          ? 'cursor-pointer focus:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-green-500'
+                          : ''
+                      }`}
+                    >
                       <td className="px-4 py-3 text-gray-500">{word.id}</td>
                       <td className="px-4 py-3 font-medium text-gray-900">{word.english}</td>
                       <td className="px-4 py-3 text-gray-700">{word.japanese}</td>

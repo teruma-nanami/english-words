@@ -1,4 +1,4 @@
-import type { PartOfSpeech, Word, WordListResponse } from '../types/word'
+import type { PartOfSpeech, Word } from '../types/word'
 import { adminFetch } from './httpClient'
 
 export interface CreateAdminWordPayload {
@@ -13,17 +13,6 @@ export interface UpdateAdminWordPayload {
   english: string
   japanese: string
   part_of_speech: PartOfSpeech
-}
-
-export async function fetchAdminWords(page: number): Promise<WordListResponse> {
-  const baseUrl = import.meta.env.VITE_API_BASE_URL
-  const res = await adminFetch(`${baseUrl}/admin/words?page=${page}`)
-
-  if (!res.ok) {
-    throw new Error('単語一覧の取得に失敗しました。')
-  }
-
-  return res.json() as Promise<WordListResponse>
 }
 
 export async function createAdminWord(payload: CreateAdminWordPayload): Promise<void> {

@@ -86,7 +86,7 @@ return [
     */
 
     'redirects' => [
-        'login' => env('FRONTEND_URL', 'http://localhost:3000').'/admin/words',
+        'login' => env('FRONTEND_URL', 'http://localhost:3000').'/',
     ],
 
     /*

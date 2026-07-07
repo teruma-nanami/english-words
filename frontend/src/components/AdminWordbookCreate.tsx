@@ -19,7 +19,7 @@ function AdminWordbookCreate() {
 
     createAdminWordbook({ name })
       .then(() => {
-        navigate('/admin/words')
+        navigate('/admin/words/create-wordbook')
       })
       .catch(() => {
         setSubmitError('単語帳の登録に失敗しました。')

@@ -33,7 +33,7 @@ function Header() {
             </li>
             <li>
               {isAuthenticated ? (
-                <Link to="/admin/words" className="text-green-600 hover:text-green-700">
+                <Link to="/admin/words/create-wordbook" className="text-green-600 hover:text-green-700">
                   単語追加
                 </Link>
               ) : (
@@ -45,13 +45,6 @@ function Header() {
                 </a>
               )}
             </li>
-            {isAuthenticated && (
-              <li>
-                <Link to="/admin/words/create-wordbook" className="text-green-600 hover:text-green-700">
-                  単語帳一覧
-                </Link>
-              </li>
-            )}
             {isAuthenticated && (
               <li>
                 <button

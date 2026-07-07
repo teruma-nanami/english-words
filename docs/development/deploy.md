@@ -18,7 +18,7 @@
 ssh <ロリポップのSSHユーザー>@<ホスト>
 cd <ドキュメントルートの配置先>
 git clone <リポジトリURL> .
-git switch main
+git switch develop
 ```
 
 ## 3. バックエンドのセットアップ
@@ -66,10 +66,12 @@ php artisan db:seed --force
 
 `db:seed`は初回のみ実行する。`ADMIN_EMAIL`・`ADMIN_PASSWORD`が`.env`に設定されていない場合はエラーで停止する。
 
-## 5. フロントエンドのビルド
+## 5. フロントエンドのビルド（ローカル環境で実行）
+
+ロリポップにはNode.js/npmの実行環境がないため、フロントエンドは開発者のローカル環境でビルドし、ビルド成果物を`scp`でサーバーへ転送する。
 
 ```bash
-cd ../frontend
+cd frontend
 npm install
 cp .env.example .env
 ```
@@ -84,27 +86,40 @@ VITE_API_BASE_URL=/api
 npm run build
 ```
 
-`vite.config.ts`の設定により、ビルド成果物は`backend/public/spa/`へ直接出力される。
+`vite.config.ts`の設定により、ビルド成果物はローカルの`backend/public/spa/`へ出力される。これをロリポップサーバーへ転送する。
+
+```bash
+scp -r backend/public/spa <ロリポップのSSHユーザー>@<ホスト>:<ドキュメントルートの配置先>/backend/public/spa
+```
 
 ## 6. 動作確認
 
 - [ ] `https://<本番ドメイン>/`でReactの単語一覧が表示される
 - [ ] `https://<本番ドメイン>/test`でクイズ機能が動作する
-- [ ] `/admin/words`などを直接URL入力・リロードしても404にならない
-- [ ] `/login`でBladeログイン画面が表示され、ログイン後`/admin/words`へ遷移しCRUD操作ができる
+- [ ] `/admin/words/create-wordbook`などを直接URL入力・リロードしても404にならない
+- [ ] `/login`でBladeログイン画面が表示され、ログイン後`/`へ遷移しCRUD操作ができる
 - [ ] 存在しないAPIパス（例：`/api/does-not-exist`）がJSON形式の404を返す
 - [ ] 未認証で管理ページにアクセスすると`/login`にリダイレクトされる
 - [ ] `.env`・ビルド成果物に秘密情報が含まれず、リポジトリへコミットされていない
 
 ## 今後の更新デプロイ
 
-初回リリース後にコードを更新する場合は、サーバー上で以下を実行する。
+初回リリース後にコードを更新する場合は、次の手順で行う。
+
+サーバー上（バックエンドのみ）：
 
 ```bash
-git pull origin main
+git pull origin develop
 cd backend && composer install --no-dev --optimize-autoloader
 php artisan migrate --force
-cd ../frontend && npm install && npm run build
+```
+
+フロントエンドはロリポップにNode.js/npmがないため、ローカル環境でビルドし`scp`で転送する（手順は「5. フロントエンドのビルド」と同じ）。
+
+```bash
+# ローカル環境で実行
+cd frontend && npm install && npm run build
+scp -r backend/public/spa <ロリポップのSSHユーザー>@<ホスト>:<ドキュメントルートの配置先>/backend/public/spa
 ```
 
 CI/CDによる自動デプロイは対象外（Issue #57の対象外事項）。

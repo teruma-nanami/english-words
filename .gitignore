@@ -27,6 +27,9 @@ backend/public/spa/
 # Codex
 .agents/
 
+# ロリポップ実デプロイ用手順メモ（秘密情報を含むためコミットしない）
+docs/development/deploy-local.md
+
 # OS
 .DS_Store
 Thumbs.db

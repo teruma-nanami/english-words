@@ -64,7 +64,7 @@ function AdminWordEdit() {
       part_of_speech: partOfSpeech,
     })
       .then(() => {
-        navigate('/admin/words')
+        navigate('/')
       })
       .catch(() => {
         setSubmitError('単語の更新に失敗しました。')
@@ -83,7 +83,7 @@ function AdminWordEdit() {
 
     deleteAdminWord(Number(id))
       .then(() => {
-        navigate('/admin/words')
+        navigate('/')
       })
       .catch(() => {
         setDeleteError('単語の削除に失敗しました。')
@@ -97,7 +97,7 @@ function AdminWordEdit() {
     <div className="min-h-screen bg-white px-4 py-10">
       <div className="mx-auto max-w-3xl">
         <div className="mb-6 border-b-4 border-green-500 pb-2">
-          <Link to="/admin/words" className="text-sm text-green-600 hover:underline">
+          <Link to="/" className="text-sm text-green-600 hover:underline">
             ← 単語一覧へ戻る
           </Link>
           <h1 className="mt-2 text-3xl font-bold text-gray-900">単語を編集</h1>

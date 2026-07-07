@@ -5,7 +5,6 @@ import AdminWordbookEdit from './components/AdminWordbookEdit'
 import AdminWordbookSelect from './components/AdminWordbookSelect'
 import AdminWordCreate from './components/AdminWordCreate'
 import AdminWordEdit from './components/AdminWordEdit'
-import AdminWordList from './components/AdminWordList'
 import Header from './components/Header'
 import Test from './components/Test'
 import WordList from './components/WordList'
@@ -19,7 +18,6 @@ function App() {
         <Route path="/" element={<WordList />} />
         <Route path="/test" element={<Test />} />
         <Route path="/admin" element={<AdminRoute />}>
-          <Route path="words" element={<AdminWordList />} />
           <Route path="wordbooks/add" element={<AdminWordbookCreate />} />
           <Route path="wordbooks/:id/edit" element={<AdminWordbookEdit />} />
           <Route path="words/create-wordbook" element={<AdminWordbookSelect />} />

@@ -10,23 +10,15 @@ use App\UseCases\Admin\CreateWordUseCase;
 use App\UseCases\Admin\DeleteWordUseCase;
 use App\UseCases\Admin\ShowWordUseCase;
 use App\UseCases\Admin\UpdateWordUseCase;
-use App\UseCases\Api\Word\ListWordsUseCase;
 
 class WordController extends Controller
 {
 	public function __construct(
-		private ListWordsUseCase $listWordsUseCase,
 		private CreateWordUseCase $createWordUseCase,
 		private ShowWordUseCase $showWordUseCase,
 		private UpdateWordUseCase $updateWordUseCase,
 		private DeleteWordUseCase $deleteWordUseCase,
 	) {
-	}
-
-	public function index()
-	{
-		$words = $this->listWordsUseCase->execute();
-		return WordResource::collection($words);
 	}
 
 	public function store(AdminRequest $request)

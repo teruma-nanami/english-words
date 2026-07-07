@@ -1,6 +1,6 @@
 import { useEffect, useState, type FormEvent } from 'react'
 import { Link, useNavigate, useParams } from 'react-router-dom'
-import { fetchAdminWord, updateAdminWord } from '../api/adminWords'
+import { deleteAdminWord, fetchAdminWord, updateAdminWord } from '../api/adminWords'
 import { PART_OF_SPEECH_BADGE_STYLES, type PartOfSpeech } from '../types/word'
 
 const PART_OF_SPEECH_OPTIONS: PartOfSpeech[] = ['名詞', '動詞', '形容詞', '副詞', '前置詞']
@@ -18,6 +18,9 @@ function AdminWordEdit() {
 
   const [submitting, setSubmitting] = useState(false)
   const [submitError, setSubmitError] = useState<string | null>(null)
+
+  const [deleting, setDeleting] = useState(false)
+  const [deleteError, setDeleteError] = useState<string | null>(null)
 
   useEffect(() => {
     if (!id) return
@@ -68,6 +71,25 @@ function AdminWordEdit() {
       })
       .finally(() => {
         setSubmitting(false)
+      })
+  }
+
+  const handleDelete = () => {
+    if (deleting || !id) return
+    if (!window.confirm('この単語を削除しますか？')) return
+
+    setDeleting(true)
+    setDeleteError(null)
+
+    deleteAdminWord(Number(id))
+      .then(() => {
+        navigate('/admin/words')
+      })
+      .catch(() => {
+        setDeleteError('単語の削除に失敗しました。')
+      })
+      .finally(() => {
+        setDeleting(false)
       })
   }
 
@@ -157,13 +179,30 @@ function AdminWordEdit() {
               </p>
             )}
 
-            <button
-              type="submit"
-              disabled={submitting}
-              className="w-full rounded-md bg-green-600 px-4 py-2 text-sm font-medium text-white hover:bg-green-700 disabled:cursor-not-allowed disabled:bg-gray-200 disabled:text-gray-400"
-            >
-              {submitting ? '更新中...' : '更新する'}
-            </button>
+            {deleteError && (
+              <p role="alert" className="rounded-lg border border-red-200 bg-red-50 px-4 py-3 text-red-700">
+                {deleteError}
+              </p>
+            )}
+
+            <div className="flex gap-3">
+              <button
+                type="submit"
+                disabled={submitting}
+                className="flex-1 rounded-md bg-green-600 px-4 py-2 text-sm font-medium text-white hover:bg-green-700 disabled:cursor-not-allowed disabled:bg-gray-200 disabled:text-gray-400"
+              >
+                {submitting ? '更新中...' : '更新する'}
+              </button>
+
+              <button
+                type="button"
+                onClick={handleDelete}
+                disabled={deleting}
+                className="flex-1 rounded-md border-2 border-red-500 bg-white px-4 py-2 text-sm font-medium text-red-600 hover:bg-red-50 disabled:cursor-not-allowed disabled:border-gray-200 disabled:text-gray-400"
+              >
+                {deleting ? '削除中...' : '削除'}
+              </button>
+            </div>
           </form>
         )}
       </div>

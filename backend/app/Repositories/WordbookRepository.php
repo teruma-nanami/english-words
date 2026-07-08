@@ -20,7 +20,7 @@ class WordbookRepository implements WordbookRepositoryInterface
 
 	public function getRandomWords(Wordbook $wordbook, int $count): Collection
 	{
-		return $wordbook->words()->inRandomOrder()->limit($count)->get();
+		return $wordbook->words()->with('wordbooks')->inRandomOrder()->limit($count)->get();
 	}
 
 	public function create(array $data): Wordbook

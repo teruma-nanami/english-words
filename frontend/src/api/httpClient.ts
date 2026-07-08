@@ -1,4 +1,5 @@
 const MUTATING_METHODS = new Set(['POST', 'PUT', 'PATCH', 'DELETE'])
+const OVERRIDE_METHODS = new Set(['PUT', 'PATCH', 'DELETE'])
 
 export function getBackendOrigin(): string {
   const baseUrl = import.meta.env.VITE_API_BASE_URL
@@ -29,9 +30,15 @@ export async function adminFetch(url: string, options: RequestInit = {}): Promis
     }
   }
 
+  let requestMethod = method
+  if (OVERRIDE_METHODS.has(method)) {
+    headers.set('X-HTTP-Method-Override', method)
+    requestMethod = 'POST'
+  }
+
   const res = await fetch(url, {
     ...options,
-    method,
+    method: requestMethod,
     credentials: 'include',
     headers,
   })

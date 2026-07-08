@@ -10,12 +10,12 @@ class WordRepository implements WordRepositoryInterface
 {
 	public function paginate(int $perPage): LengthAwarePaginator
 	{
-		return Word::paginate($perPage);
+		return Word::with('wordbooks')->paginate($perPage);
 	}
 
 	public function find(int $id): ?Word
 	{
-		return Word::find($id);
+		return Word::with('wordbooks')->find($id);
 	}
 
 	public function update(Word $word, array $data): Word

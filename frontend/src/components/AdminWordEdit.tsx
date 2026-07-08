@@ -12,6 +12,7 @@ function AdminWordEdit() {
   const [english, setEnglish] = useState('')
   const [japanese, setJapanese] = useState('')
   const [partOfSpeech, setPartOfSpeech] = useState<PartOfSpeech | ''>('')
+  const [order, setOrder] = useState<number | null>(null)
 
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState<string | null>(null)
@@ -36,6 +37,7 @@ function AdminWordEdit() {
         setEnglish(word.english)
         setJapanese(word.japanese)
         setPartOfSpeech(word.part_of_speech)
+        setOrder(word.order)
       })
       .catch(() => {
         if (ignore) return
@@ -169,6 +171,11 @@ function AdminWordEdit() {
                   </label>
                 ))}
               </fieldset>
+            </div>
+
+            <div className="flex items-center gap-3">
+              <span className="w-20 shrink-0 text-sm font-medium text-gray-700">No</span>
+              <span className="text-sm text-gray-900">{order ?? '-'}</span>
             </div>
 
             <p className="text-sm text-gray-500">Noを変更したい場合は、単語を削除してから登録し直してください。</p>

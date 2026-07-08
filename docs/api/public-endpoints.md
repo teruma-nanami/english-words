@@ -27,7 +27,9 @@
       "id": 1,
       "english": "apple",
       "japanese": "りんご",
-      "part_of_speech": "名詞"
+      "part_of_speech": "名詞",
+      "order": 1,
+      "wordbook_name": "TOEIC基礎"
     }
   ],
   "links": {
@@ -44,6 +46,8 @@
   }
 }
 ```
+
+単語がどの単語帳にも紐付いていない場合、`order`・`wordbook_name`は`null`になる。
 
 ## GET /api/wordbooks
 

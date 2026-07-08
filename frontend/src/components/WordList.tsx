@@ -58,10 +58,11 @@ function WordList() {
               <table className="w-full text-left text-sm">
                 <thead className="bg-green-600 text-white">
                   <tr>
-                    <th className="px-4 py-3 font-semibold">ID</th>
+                    <th className="px-4 py-3 font-semibold">No</th>
                     <th className="px-4 py-3 font-semibold">英単語</th>
                     <th className="px-4 py-3 font-semibold">日本語</th>
                     <th className="px-4 py-3 font-semibold">品詞</th>
+                    <th className="px-4 py-3 font-semibold">単語帳</th>
                   </tr>
                 </thead>
                 <tbody className="divide-y divide-gray-100">
@@ -87,7 +88,7 @@ function WordList() {
                           : ''
                       }`}
                     >
-                      <td className="px-4 py-3 text-gray-500">{word.id}</td>
+                      <td className="px-4 py-3 text-gray-500">{word.order ?? '-'}</td>
                       <td className="px-4 py-3 font-medium text-gray-900">{word.english}</td>
                       <td className="px-4 py-3 text-gray-700">{word.japanese}</td>
                       <td className="px-4 py-3">
@@ -97,6 +98,7 @@ function WordList() {
                           {PART_OF_SPEECH_LABELS[word.part_of_speech]}
                         </span>
                       </td>
+                      <td className="px-4 py-3 text-gray-700">{word.wordbook_name ?? '-'}</td>
                     </tr>
                   ))}
                 </tbody>

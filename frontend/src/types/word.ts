@@ -3,6 +3,8 @@ export interface Word {
   english: string
   japanese: string
   part_of_speech: PartOfSpeech
+  order: number | null
+  wordbook_name: string | null
 }
 
 export type PartOfSpeech = '名詞' | '動詞' | '形容詞' | '副詞' | '前置詞'

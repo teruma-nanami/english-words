@@ -1,5 +1,5 @@
 import { useState, type FormEvent } from 'react'
-import { Link, useNavigate, useParams } from 'react-router-dom'
+import { Link, useParams } from 'react-router-dom'
 import { createAdminWord } from '../api/adminWords'
 import { PART_OF_SPEECH_BADGE_STYLES, type PartOfSpeech } from '../types/word'
 
@@ -7,7 +7,6 @@ const PART_OF_SPEECH_OPTIONS: PartOfSpeech[] = ['名詞', '動詞', '形容詞',
 
 function AdminWordCreate() {
   const { wordbookId } = useParams<{ wordbookId: string }>()
-  const navigate = useNavigate()
 
   const [english, setEnglish] = useState('')
   const [japanese, setJapanese] = useState('')
@@ -32,7 +31,10 @@ function AdminWordCreate() {
       order: Number(order),
     })
       .then(() => {
-        navigate('/')
+        setEnglish('')
+        setJapanese('')
+        setPartOfSpeech('')
+        setOrder('')
       })
       .catch(() => {
         setSubmitError('単語の登録に失敗しました。')

@@ -35,7 +35,6 @@ function AdminWordCreate() {
         setJapanese('')
         setPartOfSpeech('')
         setOrder('')
-        setSubmitError(null)
       })
       .catch(() => {
         setSubmitError('単語の登録に失敗しました。')

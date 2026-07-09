@@ -15,6 +15,7 @@ function AdminWordCreate() {
 
   const [submitting, setSubmitting] = useState(false)
   const [submitError, setSubmitError] = useState<string | null>(null)
+  const [submitSuccess, setSubmitSuccess] = useState<string | null>(null)
 
   const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault()
@@ -22,6 +23,7 @@ function AdminWordCreate() {
 
     setSubmitting(true)
     setSubmitError(null)
+    setSubmitSuccess(null)
 
     createAdminWord({
       english,
@@ -35,6 +37,7 @@ function AdminWordCreate() {
         setJapanese('')
         setPartOfSpeech('')
         setOrder('')
+        setSubmitSuccess('単語を登録しました。')
       })
       .catch(() => {
         setSubmitError('単語の登録に失敗しました。')
@@ -131,6 +134,12 @@ function AdminWordCreate() {
           {submitError && (
             <p role="alert" className="rounded-lg border border-red-200 bg-red-50 px-4 py-3 text-red-700">
               {submitError}
+            </p>
+          )}
+
+          {submitSuccess && (
+            <p role="status" className="rounded-lg border border-green-200 bg-green-50 px-4 py-3 text-green-700">
+              {submitSuccess}
             </p>
           )}
 

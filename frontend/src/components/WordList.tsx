@@ -30,7 +30,7 @@ function WordList() {
     fetchWordbooks()
       .then((response) => setWordbooks(response.data))
       .catch(() => {
-        // 絞り込み選択肢の取得失敗は一覧表示自体を妨げないため無視する
+        window.alert('単語帳一覧の取得に失敗しました。')
       })
   }, [])
 
@@ -61,7 +61,9 @@ function WordList() {
   }, [currentPage, partOfSpeech, wordbookId])
 
   const handlePartOfSpeechChange = (value: string) => {
-    setPartOfSpeech(value as PartOfSpeech | '')
+    const isPartOfSpeech = (candidate: string): candidate is PartOfSpeech =>
+      PART_OF_SPEECH_OPTIONS.includes(candidate as PartOfSpeech)
+    setPartOfSpeech(isPartOfSpeech(value) ? value : '')
     setCurrentPage(1)
   }
 

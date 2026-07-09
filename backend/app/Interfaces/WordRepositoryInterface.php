@@ -7,7 +7,7 @@ use Illuminate\Pagination\LengthAwarePaginator;
 
 interface WordRepositoryInterface
 {
-	public function paginate(int $perPage): LengthAwarePaginator;
+	public function paginate(int $perPage, ?string $partOfSpeech = null, ?int $wordbookId = null): LengthAwarePaginator;
 
 	public function find(int $id): ?Word;
 

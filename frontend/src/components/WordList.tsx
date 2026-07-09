@@ -1,8 +1,18 @@
 import { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
+import { fetchWordbooks } from '../api/wordbooks'
 import { fetchWords } from '../api/words'
 import { useCurrentUser } from '../hooks/useCurrentUser'
-import { PART_OF_SPEECH_BADGE_STYLES, PART_OF_SPEECH_LABELS, type PaginationMeta, type Word } from '../types/word'
+import {
+  PART_OF_SPEECH_BADGE_STYLES,
+  PART_OF_SPEECH_LABELS,
+  type PaginationMeta,
+  type PartOfSpeech,
+  type Word,
+} from '../types/word'
+import type { Wordbook } from '../types/wordbook'
+
+const PART_OF_SPEECH_OPTIONS: PartOfSpeech[] = ['名詞', '動詞', '形容詞', '副詞', '前置詞']
 
 function WordList() {
   const { isAuthenticated } = useCurrentUser()
@@ -10,8 +20,19 @@ function WordList() {
   const [words, setWords] = useState<Word[]>([])
   const [meta, setMeta] = useState<PaginationMeta | null>(null)
   const [currentPage, setCurrentPage] = useState(1)
+  const [partOfSpeech, setPartOfSpeech] = useState<PartOfSpeech | ''>('')
+  const [wordbookId, setWordbookId] = useState<number | ''>('')
+  const [wordbooks, setWordbooks] = useState<Wordbook[]>([])
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState<string | null>(null)
+
+  useEffect(() => {
+    fetchWordbooks()
+      .then((response) => setWordbooks(response.data))
+      .catch(() => {
+        window.alert('単語帳一覧の取得に失敗しました。')
+      })
+  }, [])
 
   useEffect(() => {
     let ignore = false
@@ -19,7 +40,7 @@ function WordList() {
     setLoading(true)
     setError(null)
 
-    fetchWords(currentPage)
+    fetchWords(currentPage, partOfSpeech || undefined, wordbookId || undefined)
       .then((response) => {
         if (ignore) return
         setWords(response.data)
@@ -37,12 +58,64 @@ function WordList() {
     return () => {
       ignore = true
     }
-  }, [currentPage])
+  }, [currentPage, partOfSpeech, wordbookId])
+
+  const handlePartOfSpeechChange = (value: string) => {
+    const isPartOfSpeech = (candidate: string): candidate is PartOfSpeech =>
+      PART_OF_SPEECH_OPTIONS.includes(candidate as PartOfSpeech)
+    setPartOfSpeech(isPartOfSpeech(value) ? value : '')
+    setCurrentPage(1)
+  }
+
+  const handleWordbookChange = (value: string) => {
+    setWordbookId(value ? Number(value) : '')
+    setCurrentPage(1)
+  }
 
   return (
     <div className="min-h-screen bg-white px-4 py-10">
       <div className="mx-auto max-w-3xl">
         <h1 className="mb-6 border-b-4 border-green-500 pb-2 text-3xl font-bold text-gray-900">単語一覧</h1>
+
+        <div className="mb-6 flex flex-wrap gap-4">
+          <div>
+            <label htmlFor="part_of_speech_filter" className="mb-1 block text-sm font-medium text-gray-700">
+              品詞で絞り込み
+            </label>
+            <select
+              id="part_of_speech_filter"
+              value={partOfSpeech}
+              onChange={(event) => handlePartOfSpeechChange(event.target.value)}
+              className="w-full rounded-md border border-gray-300 px-3 py-2 text-sm text-gray-900 focus:border-green-500 focus:outline-none"
+            >
+              <option value="">すべて</option>
+              {PART_OF_SPEECH_OPTIONS.map((option) => (
+                <option key={option} value={option}>
+                  {option}
+                </option>
+              ))}
+            </select>
+          </div>
+
+          <div>
+            <label htmlFor="wordbook_filter" className="mb-1 block text-sm font-medium text-gray-700">
+              単語帳で絞り込み
+            </label>
+            <select
+              id="wordbook_filter"
+              value={wordbookId}
+              onChange={(event) => handleWordbookChange(event.target.value)}
+              className="w-full rounded-md border border-gray-300 px-3 py-2 text-sm text-gray-900 focus:border-green-500 focus:outline-none"
+            >
+              <option value="">すべて</option>
+              {wordbooks.map((wordbook) => (
+                <option key={wordbook.id} value={wordbook.id}>
+                  {wordbook.name}
+                </option>
+              ))}
+            </select>
+          </div>
+        </div>
 
         {loading && <p className="text-gray-500">読み込み中...</p>}
 

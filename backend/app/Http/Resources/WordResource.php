@@ -12,7 +12,10 @@ class WordResource extends JsonResource
 	 */
 	public function toArray(Request $request): array
 	{
-		$wordbook = $this->wordbooks->first();
+		$wordbookId = $request->query('wordbook_id');
+		$wordbook = $wordbookId
+			? $this->wordbooks->firstWhere('id', (int) $wordbookId)
+			: $this->wordbooks->first();
 
 		return [
 			'id' => $this->id,

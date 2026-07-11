@@ -19,6 +19,7 @@ class WordController extends Controller
 		$words = $this->listWordsUseCase->execute(
 			$request->validated('part_of_speech'),
 			$request->validated('wordbook_id'),
+			$request->validated('keyword'),
 		);
 		return WordResource::collection($words);
 	}

@@ -12,8 +12,8 @@ class ListWordsUseCase
 	) {
 	}
 
-	public function execute(?string $partOfSpeech, ?int $wordbookId): LengthAwarePaginator
+	public function execute(?string $partOfSpeech, ?int $wordbookId, ?string $keyword): LengthAwarePaginator
 	{
-		return $this->wordRepository->paginate(30, $partOfSpeech, $wordbookId);
+		return $this->wordRepository->paginate(30, $partOfSpeech, $wordbookId, $keyword);
 	}
 }

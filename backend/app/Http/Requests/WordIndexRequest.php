@@ -24,6 +24,7 @@ class WordIndexRequest extends FormRequest
 		return [
 			'part_of_speech' => 'nullable|in:名詞,動詞,形容詞,副詞,前置詞',
 			'wordbook_id' => 'nullable|integer|exists:wordbooks,id',
+			'keyword' => 'nullable|string|max:255',
 		];
 	}
 }

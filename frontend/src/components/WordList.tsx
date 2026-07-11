@@ -216,6 +216,14 @@ function WordList() {
               <div className="mt-4 flex items-center justify-center gap-4">
                 <button
                   type="button"
+                  onClick={() => setCurrentPage(1)}
+                  disabled={meta.current_page <= 1}
+                  className="rounded-md bg-green-600 px-3 py-1.5 text-sm font-medium text-white hover:bg-green-700 disabled:cursor-not-allowed disabled:bg-gray-200 disabled:text-gray-400"
+                >
+                  最初へ
+                </button>
+                <button
+                  type="button"
                   onClick={() => setCurrentPage((page) => page - 1)}
                   disabled={meta.current_page <= 1}
                   className="rounded-md bg-green-600 px-3 py-1.5 text-sm font-medium text-white hover:bg-green-700 disabled:cursor-not-allowed disabled:bg-gray-200 disabled:text-gray-400"
@@ -232,6 +240,14 @@ function WordList() {
                   className="rounded-md bg-green-600 px-3 py-1.5 text-sm font-medium text-white hover:bg-green-700 disabled:cursor-not-allowed disabled:bg-gray-200 disabled:text-gray-400"
                 >
                   次へ
+                </button>
+                <button
+                  type="button"
+                  onClick={() => setCurrentPage(meta.last_page)}
+                  disabled={meta.current_page >= meta.last_page}
+                  className="rounded-md bg-green-600 px-3 py-1.5 text-sm font-medium text-white hover:bg-green-700 disabled:cursor-not-allowed disabled:bg-gray-200 disabled:text-gray-400"
+                >
+                  最後へ
                 </button>
               </div>
             )}

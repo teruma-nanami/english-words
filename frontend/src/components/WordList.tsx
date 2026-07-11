@@ -22,6 +22,8 @@ function WordList() {
   const [currentPage, setCurrentPage] = useState(1)
   const [partOfSpeech, setPartOfSpeech] = useState<PartOfSpeech | ''>('')
   const [wordbookId, setWordbookId] = useState<number | ''>('')
+  const [keyword, setKeyword] = useState('')
+  const [debouncedKeyword, setDebouncedKeyword] = useState('')
   const [wordbooks, setWordbooks] = useState<Wordbook[]>([])
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState<string | null>(null)
@@ -35,12 +37,22 @@ function WordList() {
   }, [])
 
   useEffect(() => {
+    const timer = setTimeout(() => {
+      setDebouncedKeyword(keyword)
+    }, 300)
+
+    return () => {
+      clearTimeout(timer)
+    }
+  }, [keyword])
+
+  useEffect(() => {
     let ignore = false
 
     setLoading(true)
     setError(null)
 
-    fetchWords(currentPage, partOfSpeech || undefined, wordbookId || undefined)
+    fetchWords(currentPage, partOfSpeech || undefined, wordbookId || undefined, debouncedKeyword || undefined)
       .then((response) => {
         if (ignore) return
         setWords(response.data)
@@ -58,7 +70,7 @@ function WordList() {
     return () => {
       ignore = true
     }
-  }, [currentPage, partOfSpeech, wordbookId])
+  }, [currentPage, partOfSpeech, wordbookId, debouncedKeyword])
 
   const handlePartOfSpeechChange = (value: string) => {
     const isPartOfSpeech = (candidate: string): candidate is PartOfSpeech =>
@@ -72,12 +84,30 @@ function WordList() {
     setCurrentPage(1)
   }
 
+  const handleKeywordChange = (value: string) => {
+    setKeyword(value)
+    setCurrentPage(1)
+  }
+
   return (
     <div className="min-h-screen bg-white px-4 py-10">
       <div className="mx-auto max-w-3xl">
         <h1 className="mb-6 border-b-4 border-green-500 pb-2 text-3xl font-bold text-gray-900">単語一覧</h1>
 
         <div className="mb-6 flex flex-wrap gap-4">
+          <div>
+            <label htmlFor="keyword_search" className="mb-1 block text-sm font-medium text-gray-700">
+              英単語で検索
+            </label>
+            <input
+              id="keyword_search"
+              type="text"
+              value={keyword}
+              onChange={(event) => handleKeywordChange(event.target.value)}
+              className="w-full rounded-md border border-gray-300 px-3 py-2 text-sm text-gray-900 focus:border-green-500 focus:outline-none"
+            />
+          </div>
+
           <div>
             <label htmlFor="part_of_speech_filter" className="mb-1 block text-sm font-medium text-gray-700">
               品詞で絞り込み
@@ -125,7 +155,11 @@ function WordList() {
           </p>
         )}
 
-        {!loading && !error && (
+        {!loading && !error && words.length === 0 && (
+          <p className="text-gray-500">該当する単語が見つかりませんでした。</p>
+        )}
+
+        {!loading && !error && words.length > 0 && (
           <>
             <div className="overflow-hidden rounded-lg border border-gray-200 shadow-sm">
               <table className="w-full text-left text-sm">

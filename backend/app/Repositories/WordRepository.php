@@ -8,11 +8,12 @@ use Illuminate\Pagination\LengthAwarePaginator;
 
 class WordRepository implements WordRepositoryInterface
 {
-	public function paginate(int $perPage, ?string $partOfSpeech = null, ?int $wordbookId = null): LengthAwarePaginator
+	public function paginate(int $perPage, ?string $partOfSpeech = null, ?int $wordbookId = null, ?string $keyword = null): LengthAwarePaginator
 	{
 		return Word::with('wordbooks')
 			->when($partOfSpeech, fn ($query) => $query->where('part_of_speech', $partOfSpeech))
 			->when($wordbookId, fn ($query) => $query->whereHas('wordbooks', fn ($q) => $q->where('wordbooks.id', $wordbookId)))
+			->when($keyword, fn ($query) => $query->where('english', 'like', '%'.$keyword.'%'))
 			->paginate($perPage);
 	}
 

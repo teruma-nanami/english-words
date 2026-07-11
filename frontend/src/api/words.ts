@@ -4,11 +4,13 @@ export async function fetchWords(
   page: number,
   partOfSpeech?: PartOfSpeech,
   wordbookId?: number,
+  keyword?: string,
 ): Promise<WordListResponse> {
   const baseUrl = import.meta.env.VITE_API_BASE_URL
   const params = new URLSearchParams({ page: String(page) })
   if (partOfSpeech) params.set('part_of_speech', partOfSpeech)
   if (wordbookId) params.set('wordbook_id', String(wordbookId))
+  if (keyword) params.set('keyword', keyword)
 
   const res = await fetch(`${baseUrl}/words?${params.toString()}`)
 

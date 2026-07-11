@@ -1,4 +1,4 @@
-import { useState, type FormEvent } from 'react'
+import { useRef, useState, type FormEvent } from 'react'
 import { Link, useParams } from 'react-router-dom'
 import { createAdminWord } from '../api/adminWords'
 import { PART_OF_SPEECH_BADGE_STYLES, type PartOfSpeech } from '../types/word'
@@ -16,6 +16,8 @@ function AdminWordCreate() {
   const [submitting, setSubmitting] = useState(false)
   const [submitError, setSubmitError] = useState<string | null>(null)
   const [submitSuccess, setSubmitSuccess] = useState<string | null>(null)
+
+  const englishInputRef = useRef<HTMLInputElement>(null)
 
   const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault()
@@ -38,6 +40,7 @@ function AdminWordCreate() {
         setPartOfSpeech('')
         setOrder('')
         setSubmitSuccess('単語を登録しました。')
+        englishInputRef.current?.focus()
       })
       .catch(() => {
         setSubmitError('単語の登録に失敗しました。')
@@ -66,6 +69,7 @@ function AdminWordCreate() {
               id="english"
               type="text"
               required
+              ref={englishInputRef}
               value={english}
               onChange={(event) => setEnglish(event.target.value)}
               className="flex-1 rounded-md border border-gray-300 px-3 py-2 text-sm text-gray-900 focus:border-green-500 focus:outline-none"

@@ -23,6 +23,18 @@ class WordbookRepository implements WordbookRepositoryInterface
 		return $wordbook->words()->with('wordbooks')->inRandomOrder()->limit($count)->get();
 	}
 
+	public function getSequentialWords(Wordbook $wordbook, int $startWordId, int $count): Collection
+	{
+		$startOrder = $wordbook->words()->where('words.id', $startWordId)->first()?->pivot->order;
+
+		return $wordbook->words()
+			->with('wordbooks')
+			->wherePivot('order', '>=', $startOrder)
+			->orderBy('wordbook_word.order')
+			->limit($count)
+			->get();
+	}
+
 	public function create(array $data): Wordbook
 	{
 		return Wordbook::create($data);

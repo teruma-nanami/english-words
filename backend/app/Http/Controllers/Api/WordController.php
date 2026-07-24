@@ -20,6 +20,7 @@ class WordController extends Controller
 			$request->validated('part_of_speech'),
 			$request->validated('wordbook_id'),
 			$request->validated('keyword'),
+			$request->validated('per_page'),
 		);
 		return WordResource::collection($words);
 	}

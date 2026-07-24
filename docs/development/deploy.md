@@ -66,7 +66,19 @@ php artisan db:seed --force
 
 `db:seed`は初回のみ実行する。`ADMIN_EMAIL`・`ADMIN_PASSWORD`が`.env`に設定されていない場合はエラーで停止する。
 
-## 5. フロントエンドのビルド（ローカル環境で実行）
+## 5. 本番用キャッシュの生成
+
+```bash
+php artisan config:cache
+php artisan route:cache
+php artisan view:cache
+```
+
+未実行の場合、リクエストごとに`.env`・設定ファイルの読み込みとルートの再コンパイルが発生し、レスポンスが遅くなる。
+
+`.env`や`config/`配下、ルート定義を変更した場合は、再度この3コマンドを実行してキャッシュを更新する。
+
+## 6. フロントエンドのビルド（ローカル環境で実行）
 
 ロリポップにはNode.js/npmの実行環境がないため、フロントエンドは開発者のローカル環境でビルドし、ビルド成果物を`scp`でサーバーへ転送する。
 
@@ -92,7 +104,7 @@ npm run build
 scp -r backend/public/spa <ロリポップのSSHユーザー>@<ホスト>:<ドキュメントルートの配置先>/backend/public/spa
 ```
 
-## 6. 動作確認
+## 7. 動作確認
 
 - [ ] `https://<本番ドメイン>/`でReactの単語一覧が表示される
 - [ ] `https://<本番ドメイン>/test`でクイズ機能が動作する
@@ -112,9 +124,12 @@ scp -r backend/public/spa <ロリポップのSSHユーザー>@<ホスト>:<ド�
 git pull origin develop
 cd backend && composer install --no-dev --optimize-autoloader
 php artisan migrate --force
+php artisan config:cache
+php artisan route:cache
+php artisan view:cache
 ```
 
-フロントエンドはロリポップにNode.js/npmがないため、ローカル環境でビルドし`scp`で転送する（手順は「5. フロントエンドのビルド」と同じ）。
+フロントエンドはロリポップにNode.js/npmがないため、ローカル環境でビルドし`scp`で転送する（手順は「6. フロントエンドのビルド」と同じ）。
 
 ```bash
 # ローカル環境で実行

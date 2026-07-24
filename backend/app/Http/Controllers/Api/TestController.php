@@ -17,7 +17,12 @@ class TestController extends Controller
 
 	public function index(TestRequest $request)
 	{
-		$result = $this->startTestUseCase->execute($request->wordbook_id, $request->count);
+		$result = $this->startTestUseCase->execute(
+			$request->wordbook_id,
+			$request->mode,
+			$request->count,
+			$request->start_word_id,
+		);
 
 		return response()->json([
 			'data' => [

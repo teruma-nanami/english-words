@@ -16,7 +16,9 @@
 
 ### Request
 
-パラメータなし。
+| パラメータ | 型 | 必須 | 説明 |
+|---|---|---|---|
+| `per_page` | integer | 任意 | 1ページあたりの件数（1〜100、未指定時は30） |
 
 ### Response（200）
 
@@ -72,7 +74,7 @@
 
 ## GET /api/test
 
-指定した単語帳・出題数に基づき、ランダムに出題する単語を取得する。
+指定した単語帳・出題数に基づき、出題する単語を取得する。`mode`により、ランダム出題と、単語帳内の並び順（order）に沿った順番出題を切り替えられる。
 
 ### Request
 
@@ -80,6 +82,10 @@
 |---|---|---|---|
 | `wordbook_id` | integer | 必須 | 出題対象の単語帳ID（`wordbooks`テーブルに存在すること） |
 | `count` | integer | 必須 | 出題数（1以上） |
+| `mode` | string | 必須 | 出題モード（`random`または`sequential`） |
+| `start_word_id` | integer | `mode=sequential`時必須 | 出題を開始する単語ID（`words`テーブルに存在すること） |
+
+`mode=sequential`の場合、`start_word_id`の単語帳内の並び順（order）以降を、順番どおり`count`件まで取得する。開始位置から単語帳の末尾までの残り件数が`count`未満の場合、エラーにはならず残り件数分を返す。
 
 ### Response（200）
 

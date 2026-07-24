@@ -12,7 +12,14 @@ class WordRepository implements WordRepositoryInterface
 	{
 		return Word::with('wordbooks')
 			->when($partOfSpeech, fn ($query) => $query->where('part_of_speech', $partOfSpeech))
-			->when($wordbookId, fn ($query) => $query->whereHas('wordbooks', fn ($q) => $q->where('wordbooks.id', $wordbookId)))
+			->when($wordbookId, function ($query) use ($wordbookId) {
+				$query->join('wordbook_word', function ($join) use ($wordbookId) {
+					$join->on('words.id', '=', 'wordbook_word.word_id')
+						->where('wordbook_word.wordbook_id', $wordbookId);
+				})
+					->orderBy('wordbook_word.order')
+					->select('words.*');
+			})
 			->when($keyword, fn ($query) => $query->where('english', 'like', '%'.$keyword.'%'))
 			->paginate($perPage);
 	}

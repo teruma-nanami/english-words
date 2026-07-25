@@ -13,7 +13,7 @@ interface WordbookRepositoryInterface
 
 	public function getRandomWords(Wordbook $wordbook, int $count): Collection;
 
-	public function getSequentialWords(Wordbook $wordbook, int $startWordId, int $count): Collection;
+	public function getSequentialWords(Wordbook $wordbook): Collection;
 
 	public function create(array $data): Wordbook;
 

@@ -11,11 +11,11 @@ class StartTestUseCase
 	) {
 	}
 
-	public function execute(int $wordbookId, string $mode, int $count, ?int $startWordId): array
+	public function execute(int $wordbookId, string $mode, ?int $count): array
 	{
 		$wordbook = $this->wordbookRepository->find($wordbookId);
 		$words = $mode === 'sequential'
-			? $this->wordbookRepository->getSequentialWords($wordbook, $startWordId, $count)
+			? $this->wordbookRepository->getSequentialWords($wordbook)
 			: $this->wordbookRepository->getRandomWords($wordbook, $count);
 
 		return [

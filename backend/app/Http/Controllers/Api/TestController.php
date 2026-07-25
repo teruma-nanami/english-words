@@ -21,7 +21,6 @@ class TestController extends Controller
 			$request->wordbook_id,
 			$request->mode,
 			$request->count,
-			$request->start_word_id,
 		);
 
 		return response()->json([

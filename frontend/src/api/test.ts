@@ -1,19 +1,13 @@
 import type { TestMode, TestResponse } from '../types/test'
 
-export async function fetchTest(
-  wordbookId: number,
-  mode: TestMode,
-  count: number,
-  startWordId?: number,
-): Promise<TestResponse> {
+export async function fetchTest(wordbookId: number, mode: TestMode, count?: number): Promise<TestResponse> {
   const baseUrl = import.meta.env.VITE_API_BASE_URL
   const params = new URLSearchParams({
     wordbook_id: String(wordbookId),
-    count: String(count),
     mode,
   })
-  if (startWordId !== undefined) {
-    params.set('start_word_id', String(startWordId))
+  if (count !== undefined) {
+    params.set('count', String(count))
   }
   const res = await fetch(`${baseUrl}/test?${params.toString()}`)
 

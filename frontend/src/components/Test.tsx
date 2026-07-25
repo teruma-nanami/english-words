@@ -1,7 +1,6 @@
 import { useEffect, useState, type FormEvent } from 'react'
 import { fetchTest } from '../api/test'
 import { fetchWordbooks } from '../api/wordbooks'
-import { fetchWords } from '../api/words'
 import type { TestMode } from '../types/test'
 import type { Word } from '../types/word'
 import type { Wordbook } from '../types/wordbook'
@@ -16,11 +15,6 @@ function Test() {
   const [selectedWordbookId, setSelectedWordbookId] = useState<number | null>(null)
   const [questionCount, setQuestionCount] = useState(20)
   const [mode, setMode] = useState<TestMode>('random')
-
-  const [startWords, setStartWords] = useState<Word[]>([])
-  const [startWordsLoading, setStartWordsLoading] = useState(false)
-  const [startWordsError, setStartWordsError] = useState<string | null>(null)
-  const [startWordId, setStartWordId] = useState<number | null>(null)
 
   const [submitting, setSubmitting] = useState(false)
   const [submitError, setSubmitError] = useState<string | null>(null)
@@ -61,48 +55,14 @@ function Test() {
     }
   }, [])
 
-  useEffect(() => {
-    if (mode !== 'sequential' || selectedWordbookId === null) {
-      setStartWords([])
-      setStartWordId(null)
-      return
-    }
-
-    let ignore = false
-
-    setStartWordsLoading(true)
-    setStartWordsError(null)
-
-    fetchWords(1, undefined, selectedWordbookId, undefined, 100)
-      .then((response) => {
-        if (ignore) return
-        setStartWords(response.data)
-        setStartWordId(response.data.length > 0 ? response.data[0].id : null)
-      })
-      .catch(() => {
-        if (ignore) return
-        setStartWordsError('単語一覧の取得に失敗しました。')
-      })
-      .finally(() => {
-        if (ignore) return
-        setStartWordsLoading(false)
-      })
-
-    return () => {
-      ignore = true
-    }
-  }, [mode, selectedWordbookId])
-
   const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault()
     if (selectedWordbookId === null || submitting) return
-    const effectiveStartWordId = mode === 'sequential' ? startWordId : null
-    if (mode === 'sequential' && effectiveStartWordId === null) return
 
     setSubmitting(true)
     setSubmitError(null)
 
-    fetchTest(selectedWordbookId, mode, questionCount, effectiveStartWordId ?? undefined)
+    fetchTest(selectedWordbookId, mode, mode === 'random' ? questionCount : undefined)
       .then((response) => {
         if (response.data.words.length === 0) {
           setSubmitError('選択した単語帳に出題できる単語がありません。')
@@ -208,49 +168,22 @@ function Test() {
                   </div>
                 </fieldset>
 
-                {mode === 'sequential' && (
+                {mode === 'random' && (
                   <div>
-                    <label htmlFor="start_word_id" className="mb-1 block text-sm font-medium text-gray-700">
-                      開始位置
+                    <label htmlFor="count" className="mb-1 block text-sm font-medium text-gray-700">
+                      出題数
                     </label>
-                    {startWordsLoading && <p className="text-sm text-gray-500">読み込み中...</p>}
-                    {!startWordsLoading && startWordsError && (
-                      <p role="alert" className="rounded-lg border border-red-200 bg-red-50 px-4 py-3 text-red-700">
-                        {startWordsError}
-                      </p>
-                    )}
-                    {!startWordsLoading && !startWordsError && (
-                      <select
-                        id="start_word_id"
-                        value={startWordId ?? ''}
-                        onChange={(event) => setStartWordId(Number(event.target.value))}
-                        required
-                        className="w-full rounded-md border border-gray-300 px-3 py-2 text-sm text-gray-900 focus:border-green-500 focus:outline-none"
-                      >
-                        {startWords.map((word) => (
-                          <option key={word.id} value={word.id}>
-                            {word.order}. {word.english}
-                          </option>
-                        ))}
-                      </select>
-                    )}
+                    <input
+                      id="count"
+                      type="number"
+                      min={1}
+                      required
+                      value={questionCount}
+                      onChange={(event) => setQuestionCount(Number(event.target.value))}
+                      className="w-full rounded-md border border-gray-300 px-3 py-2 text-sm text-gray-900 focus:border-green-500 focus:outline-none"
+                    />
                   </div>
                 )}
-
-                <div>
-                  <label htmlFor="count" className="mb-1 block text-sm font-medium text-gray-700">
-                    出題数
-                  </label>
-                  <input
-                    id="count"
-                    type="number"
-                    min={1}
-                    required
-                    value={questionCount}
-                    onChange={(event) => setQuestionCount(Number(event.target.value))}
-                    className="w-full rounded-md border border-gray-300 px-3 py-2 text-sm text-gray-900 focus:border-green-500 focus:outline-none"
-                  />
-                </div>
 
                 {submitError && (
                   <p role="alert" className="rounded-lg border border-red-200 bg-red-50 px-4 py-3 text-red-700">
@@ -260,9 +193,7 @@ function Test() {
 
                 <button
                   type="submit"
-                  disabled={
-                    submitting || selectedWordbookId === null || (mode === 'sequential' && startWordId === null)
-                  }
+                  disabled={submitting || selectedWordbookId === null}
                   className="w-full rounded-md bg-green-600 px-4 py-2 text-sm font-medium text-white hover:bg-green-700 disabled:cursor-not-allowed disabled:bg-gray-200 disabled:text-gray-400"
                 >
                   {submitting ? '開始中...' : 'テスト開始！'}
